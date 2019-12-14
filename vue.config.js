@@ -49,18 +49,18 @@ module.exports = {
       errors: true
     }
   },
-  css: {
-    loaderOptions: {
-      less: {
-        modifyVars: {
-          red: '#03a9f4',
-          blue: '#3eaf7c',
-          orange: '#f08d49',
-          'text-color': '#111'
-        }
-      }
-    }
-  },
+  // css: {
+  //   loaderOptions: {
+  //     less: {
+  //       modifyVars: {
+  //         red: '#03a9f4',
+  //         blue: '#3eaf7c',
+  //         orange: '#f08d49',
+  //         'text-color': '#111'
+  //       }
+  //     }
+  //   }
+  // },
   configureWebpack: config => {
     // 为生产环境修改配置...
     if (process.env.NODE_ENV === 'production') {

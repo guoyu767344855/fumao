@@ -5,10 +5,27 @@ Vue.use(Router)
 export const constantRoutes = [
   {
     path: '/',
-    component: () => import('@/views/home/index'),
     meta: {
+      title: '伊水一方',
       keepAlive: false
-    }
+    },
+    component: () => import('@/views/home/index')
+  },
+  {
+    path: '/business',
+    meta:{
+      title: '商学院',
+      keepAlive: false
+    },
+    component: () => import('@/views/business/index')
+  },
+  {
+    path: '/my',
+    meta:{
+      title: '我的',
+      keepAlive: false
+    },
+    component: () => import('@/views/my/index')
   }
 ]
 

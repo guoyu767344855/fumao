@@ -14,11 +14,23 @@ import FastClick from 'fastclick'
 // 引入需要的vant组件
 import {
   Button,
-  NumberKeyboard
+  NumberKeyboard,
+  Tabbar, 
+  TabbarItem,
+  Swipe,
+  SwipeItem
 } from 'vant'
 
-Vue.use(Button)
-Vue.use(NumberKeyboard)
+Vue.use(Button).use(NumberKeyboard).use(Tabbar).use(TabbarItem).use(Swipe).use(SwipeItem)
+
+/* 路由发生变化修改页面title */
+router.beforeEach((to, from, next) => {
+  if (to.meta.title) {
+    document.title = to.meta.title
+  }
+  next()
+})
+
 if ('addEventListener' in document) {
   document.addEventListener(
     'DOMContentLoaded',
