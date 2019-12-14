@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import 'normalize.css/normalize.css' // A modern alternative to CSS resets
-import '@/assets/css/index.scss' // global css
+import '@/assets/css/index.less' // global css
 // 移动端适配
 import 'lib-flexible/flexible.js'
 import App from './App'
@@ -13,15 +13,28 @@ import FastClick from 'fastclick'
 
 // 引入需要的vant组件
 import {
+  Toast,
   Button,
   NumberKeyboard,
   Tabbar, 
   TabbarItem,
   Swipe,
-  SwipeItem
+  SwipeItem,
+  List,
+  Icon,
+  Popup,
+  Stepper,
+  AddressList,
+  AddressEdit,
+  Area,
+  Tab, 
+  Tabs
 } from 'vant'
 
-Vue.use(Button).use(NumberKeyboard).use(Tabbar).use(TabbarItem).use(Swipe).use(SwipeItem)
+Vue.use(Toast).use(Button).use(NumberKeyboard).use(AddressList)
+.use(Tabbar).use(TabbarItem).use(Swipe).use(Stepper)
+.use(SwipeItem).use(List).use(Icon).use(Popup)
+.use(AddressEdit).use(Area).use(Tab).use(Tabs)
 
 /* 路由发生变化修改页面title */
 router.beforeEach((to, from, next) => {

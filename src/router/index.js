@@ -7,7 +7,8 @@ export const constantRoutes = [
     path: '/',
     meta: {
       title: '伊水一方',
-      keepAlive: false
+      keepAlive: false,
+      footer:true
     },
     component: () => import('@/views/home/index')
   },
@@ -15,7 +16,8 @@ export const constantRoutes = [
     path: '/business',
     meta:{
       title: '商学院',
-      keepAlive: false
+      keepAlive: false,
+      footer:true
     },
     component: () => import('@/views/business/index')
   },
@@ -23,9 +25,58 @@ export const constantRoutes = [
     path: '/my',
     meta:{
       title: '我的',
-      keepAlive: false
+      keepAlive: false,
+      footer:true
     },
     component: () => import('@/views/my/index')
+  },
+  {
+    path: '/goodDetail',
+    meta:{
+      title: '订单详情',
+      keepAlive: false
+    },
+    component: () => import('@/views/goodDetail/index')
+  },
+  {
+    path: '/pay',
+    meta:{
+      title: '确认订单',
+      keepAlive: false
+    },
+    component: () => import('@/views/pay/index')
+  },
+  {
+    path: '/location',
+    meta:{
+      title: '收货地址',
+      keepAlive: false
+    },
+    component: () => import('@/views/location/index')
+  },
+  {
+    path: '/addLocation',
+    meta:{
+      title: '添加地址',
+      keepAlive: false
+    },
+    component: () => import('@/views/addLocation/index')
+  },
+  {
+    path: '/orderList',
+    meta:{
+      title: '我的订单',
+      keepAlive: false
+    },
+    component: () => import('@/views/orderList/index')
+  },
+  {
+    path: '/orderDetail',
+    meta:{
+      title: '我的订单',
+      keepAlive: false
+    },
+    component: () => import('@/views/orderDetail/index')
   }
 ]
 

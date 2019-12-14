@@ -4,7 +4,7 @@
       <router-view v-if="$route.meta.keepAlive"></router-view>
     </keep-alive>
     <router-view v-if="!$route.meta.keepAlive"></router-view>
-    <Footer></Footer>
+    <Footer v-if="$route.meta.footer"></Footer>
   </div>
 </template>
 <script>
