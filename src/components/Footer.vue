@@ -51,6 +51,13 @@ export default {
             }
         ],
     }
+  },
+  created(){
+      this.iconList.forEach((item,index)=>{
+          if(item.route == this.$route.path){
+              this.active = index
+          }
+      })
   }
 }
 </script>

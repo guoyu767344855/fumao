@@ -1,7 +1,7 @@
 <template>
   <div class='orderList'>
     <van-tabs v-model="active" sticky>
-        <van-tab v-for="(item,index) in 4" :key="index" :title="'选项 ' + index">
+        <van-tab v-for="(item,index) in statusList" :key="index" :title="item.title">
             <div v-if="list.length == 0" class="noList">暂无订单~</div>
             <van-list
             v-model="loading"
@@ -44,7 +44,15 @@ export default {
         active: 0,
         list: [],
         loading: false,
-        finished: false
+        finished: false,
+        statusList:[
+          {status:0,title:'待付款'},
+          {status:1,title:'待发货'},
+          {status:2,title:'已发货'},
+          {status:3,title:'已完成'},
+          {status:4,title:'已关闭'},
+          {status:5,title:'无效订单'},
+        ]
     }
   },
 

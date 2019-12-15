@@ -23,18 +23,34 @@ export default {
     return {
       chosenAddressId: '1',
       list: [
-        // {
-        //   id: '1',
-        //   name: '张三',
-        //   tel: '13000000000',
-        //   address: '浙江省杭州市西湖区文三路 138 号东方通信大厦 7 楼 501 室'
-        // },
-        // {
-        //   id: '2',
-        //   name: '李四',
-        //   tel: '1310000000',
-        //   address: '浙江省杭州市拱墅区莫干山路 50 号'
-        // }
+        {
+          id: '1',
+          name: '张三',
+          tel: '13000000000',
+          address: '浙江省杭州市西湖区文三路 138 号东方通信大厦 7 楼 501 室',
+          addressDetail: "杭州市西湖区 黄龙万科中心",
+          areaCode: "110102",
+          city: "北京市",
+          country: "",
+          county: "西城区",
+          isDefault: false,
+          postalCode: "046100",
+          province: "北京市",
+        },
+        {
+          id: '2',
+          name: '李四',
+          tel: '13000000000',
+          address: '浙江省杭州市西湖区文三路 138 号东方通信大厦 7 楼 501 室',
+          addressDetail: "杭州市西湖区 黄龙万科中心",
+          areaCode: "110102",
+          city: "北京市",
+          country: "",
+          county: "西城区",
+          isDefault: false,
+          postalCode: "046100",
+          province: "北京市",
+        }
       ]
     }
   },
@@ -47,6 +63,11 @@ export default {
     },
 
     onEdit(item, index) {
+      console.log(item,index)
+      this.$router.push({
+        path:'/addLocation',
+        query:item
+      })
     }
   }
 }

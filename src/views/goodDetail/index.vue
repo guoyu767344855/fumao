@@ -92,7 +92,7 @@ export default {
         value:1,
         choseIndex:0,
         goodsId:26,
-        quota:1,
+        quota:0,
         quotaUsed:2,
         details:{},
         sku: {},
@@ -101,14 +101,18 @@ export default {
     }
   },
   created(){
-    console.log(this.$route.query.id)
+    // console.log(this.$route.query.id)
     this.getDetail(this.$route.query.id)
   },
   methods: {
-      onBuyClicked(e){
-          console.log(e)
+      onBuyClicked(query){
+        //   let query = Object.assign(query,{
+        //       price:this.details.price,
+        //   })
+          console.log(query)
           this.$router.push({
-              path:`/pay?id=${e.selectedSkuComb.id}`
+              path:`/pay`,
+              query
           })
       },
       onAddCartClicked(){

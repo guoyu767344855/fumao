@@ -1,9 +1,10 @@
 <template>
   <div class='addLocation'>
     <van-address-edit
+    :address-info="addressInfo"
     :area-list="areaList"
     show-postal
-    show-delete
+    :show-delete="isEdit"
     show-set-default
     show-search-result
     :search-result="searchResult"
@@ -23,14 +24,22 @@ export default {
 
   data () {
     return {
+        addressInfo:{},
+        isEdit:false,
         areaList,
         searchResult: []
     }
   },
-
+  created(){
+    if(this.$route.query.id){
+      this.isEdit = true,
+      this.addressInfo = this.$route.query
+    }
+    console.log(this.$route.query)
+  },
   methods: {
-    onSave() {
-        Toast("delete");
+    onSave(item) {
+      console.log(item)
     },
     onDelete() {
         Toast("delete");

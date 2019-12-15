@@ -21,11 +21,11 @@
     </div>
     <div class="line">
         <div class="line-left">数量</div>
-        <van-stepper v-model="value" integer />
+        <van-stepper v-model="detail.selectedNum" integer />
     </div>
     <div class="line">
         <div class="line-left">商品金额</div>
-        <div class="line-num">¥199</div>
+        <div class="line-num">¥{{detail.selectedSkuComb.price}}</div>
     </div>
     <div class="line">
         <div class="line-left">运费</div>
@@ -37,7 +37,7 @@
     </div>
     <div class="footer">
         <div class="footer-center">
-            <div>总计: ￥4.25</div>
+            <div>总计: ￥{{detail.selectedSkuComb.price}}</div>
         </div>
         <div class="footer-right" @click="pay">立刻购买</div>
     </div>
@@ -50,11 +50,12 @@ export default {
 
   data () {
     return {
-        value:1
+        detail:{}
     }
   },
   created(){
-      console.log(this.$route.query.id)
+      console.log(this.$route.query)
+      this.detail = this.$route.query
   },
   methods: {
     // 支付
@@ -84,6 +85,7 @@ export default {
         border:1px solid rgba(133,133,133,1);
         z-index: 10000;
         background-color: #ffffff;
+        text-align: center;
         &-center{
             flex-grow: 1;
             display: flex;

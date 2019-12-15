@@ -4,7 +4,7 @@
       <div class="header-left">
         <img class="header-img" src="../../assets/images/aa.jpg" alt="">
         <div class="header-user">
-          <div class="header-user-name">测试小二</div>
+          <div class="header-user-name">{{userInfo.username}}</div>
           <div class="header-user-dc">用户描述描述描述</div>
         </div>
       </div>
@@ -61,11 +61,13 @@
 </template>
 
 <script>
+import {getUserInfo} from '@/api/my'
 export default {
   name: 'my',
 
   data () {
     return {
+      userInfo:{},
       moreList:[
         {
           pic:'',
@@ -87,7 +89,12 @@ export default {
       ]
     }
   },
-
+  created(){
+    getUserInfo().then(res=>{
+      console.log(res)
+      this.userInfo = res.data
+    })
+  },
   methods: {
     // 去地理位置
     toLocation(){
