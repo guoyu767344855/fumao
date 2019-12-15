@@ -4,7 +4,7 @@ import { Toast } from 'vant'
 import { api } from '@/config'
 // create an axios instance
 const service = axios.create({
-  // baseURL: api.base_api, // url = base url + request url
+  baseURL: api.base_api, // url = base url + request url
   withCredentials: true, // send cookies when cross-domain requests
   timeout: 5000 // request timeout
 })
@@ -21,6 +21,9 @@ service.interceptors.request.use(
     }
     if (store.getters.token) {
       config.headers['X-Token'] = ''
+    }
+    if(localStorage.getItem('token')){
+      config.headers['Authorization'] = `Bearer ${localStorage.getItem('token')}`
     }
     return config
   },

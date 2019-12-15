@@ -77,13 +77,29 @@ export const constantRoutes = [
       keepAlive: false
     },
     component: () => import('@/views/orderDetail/index')
+  },
+  {
+    path: '/articleList',
+    meta:{
+      title: '专业课程',
+      keepAlive: false
+    },
+    component: () => import('@/views/articleList/index')
+  },
+  {
+    path: '/article',
+    meta:{
+      title: '',
+      keepAlive: false
+    },
+    component: () => import('@/views/article/index')
   }
 ]
 
 const createRouter = () =>
   new Router({
     mode: 'history', // require service support
-    base:  '/app/',
+    base:  '/',
     scrollBehavior: () => ({ y: 0 }),
     routes: constantRoutes
   })

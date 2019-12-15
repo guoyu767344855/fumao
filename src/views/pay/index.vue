@@ -53,7 +53,9 @@ export default {
         value:1
     }
   },
-
+  created(){
+      console.log(this.$route.query.id)
+  },
   methods: {
     // 支付
     pay(){

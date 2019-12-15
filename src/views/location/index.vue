@@ -56,6 +56,7 @@ export default {
 .location{
     background-color: #f5f5f5;
     height: 100%;
+    text-align: center;
     &-item{
         margin: 30px;
     }

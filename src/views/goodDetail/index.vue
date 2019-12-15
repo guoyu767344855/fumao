@@ -1,17 +1,19 @@
 <template>
   <div class='orderDetail'>
-    <img class="topImg" src="../../assets/images/aa.jpg" alt="">
+      <van-swipe :autoplay="3000" indicator-color="white">
+        <van-swipe-item v-for="(item, index) in details.albumPicUrls" :key="index"><img class="topImg" :src="item" alt=""></van-swipe-item>
+    </van-swipe>
     <div class="topName">
         <div class="topName-left">
-            <div class="topName-left-name">伊水一方H2O2水净清</div>
-            <div class="topName-left-num">¥299</div>
+            <div class="topName-left-name">{{details.name}}</div>
+            <div class="topName-left-num">¥{{details.price}}</div>
             <div class="topName-left-count">
-                <span>库存：9999</span>
-                <span>库存：9999</span>
+                <span>库存：{{details.stock}}</span>
+                <span>销量：{{details.sale}}</span>
             </div>
         </div>
         <div class="topName-right">
-            <img class="topName-right-img" src="../../assets/images/Shape.png" alt="">
+            <img class="topName-right-img" src="../../assets/images/share.png" alt="">
             <div>分享</div>
         </div>
     </div>
@@ -32,9 +34,9 @@
     <div class="line"></div>
     <div class="bottom">
         <div class="bottom-title">商品详情</div>
-        <img class="topImg" src="../../assets/images/aa.jpg" alt="">
+        <div class="detailHtml" v-html="details.detailHtml"></div>
     </div>
-    <div class="footer">
+    <div class="footer" v-if="!show">
         <div class="footer-left">
             <van-icon class="service-o" name="service-o" />
             <div>客服</div>
@@ -45,36 +47,42 @@
         </div>
         <div class="footer-right" @click="showPopup">立刻购买</div>
     </div>
-    <van-popup
-    class="popup"
-    v-model="show"
-    position="bottom"
-    :style="{ height: '40%' }"
-    :overlay-style="{backgroundColor: 'rgba(0,0,0,0)'}"
-    >
-    <div class="popup-top">
-        <img class="popup-top-img" src="../../assets/images/aa.jpg" alt="">
-        <div class="popup-top-right">
-            <div class="popup-top-one">¥299</div>
-            <div class="popup-top-two">库存：9999</div>
-            <div class="popup-top-three">选择规格</div>
-        </div>
-    </div>
-    <div class="popup-middle">
-        <div class="popup-middle-line">规格</div>
-        <div>
-            <span :class="index == choseIndex ? 'popup-middle-ontxt' : 'popup-middle-txt'" v-for="(item, index) in 10" :key="index"  @click="chose(index)">默认</span>
-        </div>
-    </div>
-    <div class="popup-middle bottom">
-        <div class="popup-middle-line">数量</div>
-        <van-stepper v-model="value" integer />
-    </div>
-    </van-popup>
+    <van-sku
+        v-model="show"
+        stepper-title="数量"
+        :sku="sku"
+        :goods="goods"
+        :goods-id="goodsId"
+        :quota="quota"
+        :quota-used="quotaUsed"
+        :hide-stock="sku.hide_stock"
+        show-add-cart-btn
+        reset-stepper-on-hide
+        close-on-click-overlay
+        safe-area-inset-bottom
+        @buy-clicked="onBuyClicked"
+        @add-cart="onAddCartClicked"
+        >
+        <!-- 自定义 sku actions -->
+        <template slot="sku-actions" slot-scope="props">
+           <div class="footer">
+                <div class="footer-left">
+                    <van-icon class="service-o" name="service-o" />
+                    <div>客服</div>
+                </div>
+                <div class="footer-center">
+                    <img src="../../assets/images/Shape.png" alt="">
+                    <div>赚￥4.25</div>
+                </div>
+                <div class="footer-right" @click="props.skuEventBus.$emit('sku:buy')">立刻购买</div>
+            </div>
+        </template>
+        </van-sku>
   </div>
 </template>
 
 <script>
+import { getDetail } from '@/api/goodDetail'
 export default {
   name: 'orderDetail',
 
@@ -82,13 +90,42 @@ export default {
     return {
         show: false,
         value:1,
-        choseIndex:0
+        choseIndex:0,
+        goodsId:26,
+        quota:1,
+        quotaUsed:2,
+        details:{},
+        sku: {},
+        goods: {},
+        messageConfig: {}
     }
   },
   created(){
-    console.log(this.$route.query)
+    console.log(this.$route.query.id)
+    this.getDetail(this.$route.query.id)
   },
   methods: {
+      onBuyClicked(e){
+          console.log(e)
+          this.$router.push({
+              path:`/pay?id=${e.selectedSkuComb.id}`
+          })
+      },
+      onAddCartClicked(){
+
+      },
+    //   获取商品信息
+    getDetail(id){
+        getDetail(id).then(res=>{
+            console.log(res.data)
+            this.details = res.data
+            this.sku = res.data.sku
+            this.goods = {
+                title:res.data.subTitle,
+                picture:res.data.pic
+            }
+        })
+    },
     showPopup() {
       if(!this.show){
           this.show = true;
@@ -121,6 +158,7 @@ export default {
         border:1px solid rgba(133,133,133,1);
         z-index: 10000;
         background-color: #ffffff;
+        text-align: center;
         &-left{
             flex: 1;
             font-size:20px;
@@ -284,6 +322,7 @@ export default {
             &-img{
                 width:38px;
                 height:38px;
+                margin-bottom: 10px;
             }
         }
     }
@@ -322,6 +361,9 @@ export default {
             line-height:50px;
             text-align: left;
             margin: 25px;
+        }
+        .detailHtml{
+            width: 750px;
         }
     }
 }

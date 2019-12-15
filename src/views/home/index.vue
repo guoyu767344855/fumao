@@ -25,20 +25,20 @@
       class="list"
     >
       <div class="list-item" v-for="(item, index) in list" :key="index" @click="toDetail(item)">
-        <img class="list-img" src="../../assets/images/aa.jpg" alt="">
+        <img class="list-img" :src="item.pic" alt="">
         <div class="list-content">
           <div class="list-content-one">
-            欧舒丹甜蜜樱花沐浴啫喱/身体乳套装
+            {{item.name}}
           </div>
           <div class="list-content-two">
-            法国品牌 | 过敏包退 | 官方直售
+            {{item.subTitle}}
           </div>
           <div class="list-content-three">
             <span class="youzhi">优选推荐</span>
-            <span>月销20111件</span>
+            <span>月销{{item.sale}}{{item.unit}}</span>
           </div>
           <div class="list-content-four">
-            ¥378
+            ¥{{item.price}}
           </div>
         </div>
       </div>
@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import {list,login} from '@/api/mock'
+import {list} from '@/api/home'
 export default {
   name:'home',
   components: {
@@ -56,29 +56,35 @@ export default {
   data () {
     return {
       bannerList:[
-        require('../../assets/images/aa.jpg'),
-        require('../../assets/images/aa.jpg'),
-        require('../../assets/images/aa.jpg'),
-        require('../../assets/images/aa.jpg')
+        require('../../assets/images/banner.png'),
+        require('../../assets/images/banner.png'),
+        require('../../assets/images/banner.png'),
+        require('../../assets/images/banner.png')
       ],
       iconList:[
         {
-          pic:require('../../assets/images/aa.jpg'),
+          pic:require('../../assets/images/huiyuan.png'),
           name:'会员中心'
         },
         {
-          pic:require('../../assets/images/aa.jpg'),
+          pic:require('../../assets/images/huangjing.png'),
           name:'黄精文化'
         },
         {
-          pic:require('../../assets/images/aa.jpg'),
+          pic:require('../../assets/images/chanpin.png'),
           name:'产品中心'
         },
         {
-          pic:require('../../assets/images/aa.jpg'),
+          pic:require('../../assets/images/shangxue.png'),
           name:'商学院'
         },
       ],
+      pageQyery:{
+        pageIndex: 1,
+        pageSize: 10,
+        sortDirection: "string",
+        sortField: "string"
+      },
       list: [],
       loading: false,
       finished: false
@@ -91,32 +97,37 @@ export default {
     // console.log(process.env)
   },
   created(){
-    
+
   },
   methods: {
+    // 获取列表详情
+    getList(){
+      console.log(this.pageQyery.pageIndex)
+      list(this.pageQyery).then(res=>{
+        console.log('商品列表',res)
+        this.list = this.list.concat(res.list);
+        this.loading = false;
+        this.pageQyery.pageIndex ++ 
+        if (this.list.length >= res.total) {
+          this.finished = true;
+        }
+      })
+    },
     // 去详情
-    toDetail(){
+    toDetail(item){
       this.$router.push({
         path: '/goodDetail',
         query:{
-          id:''
+          id: item.id
         }
       })
     },
     onLoad() {
       // 异步更新数据
-      setTimeout(() => {
-        for (let i = 0; i < 10; i++) {
-          this.list.push(this.list.length + 1);
-        }
-        // 加载状态结束
-        this.loading = false;
-
-        // 数据全部加载完成
-        if (this.list.length >= 80) {
-          this.finished = true;
-        }
-      }, 500);
+      // setTimeout(() => {
+      //   this.getList();
+      // }, 500);
+      this.getList();
     }
   }
 }
@@ -147,7 +158,6 @@ export default {
     &-img{
       width:94px;
       height:94px;
-      background:rgba(216,216,216,1);
       border-radius:40px;
       opacity:0.79;
     }

@@ -1,47 +1,42 @@
 <template>
-  <div class='orderList'>
-    <van-tabs v-model="active" sticky>
-        <van-tab v-for="(item,index) in 4" :key="index" :title="'选项 ' + index">
-            <div v-if="list.length == 0" class="noList">暂无订单~</div>
-            <van-list
-            v-model="loading"
-            :finished="finished"
-            finished-text="没有更多了"
-            @load="onLoad"
-            class="list"
-            >
-            <div class="list-item" v-for="(item, index) in list" :key="index" @click="toDetail(item)">
-                <div class="list-item-header flex">
-                    <div>2019-10-10 12:00:00</div>
-                    <div class="list-item-header-dc">待付款</div>
-                </div>
-                <div class="list-item-content flex">
-                    <div class="flex">
-                        <img class="list-img" src="../../assets/images/aa.jpg" alt="">
-                        <div class="list-txt">
-                            <div class="list-txt-top">伊水一方H2O2水净清</div>
-                            <div style="margin-top:20px;">X1</div>
-                        </div>
-                    </div>
-                    <div class="list-count"><span>支付金额：</span><span class="money">¥399</span></div>
-                </div>
-                <div class="list-item-footer">
-                    <span>详情</span>
-                </div>
+  <div class='articleList'>
+    <div v-if="list.length == 0" class="noList">暂无订单~</div>
+        <van-list
+        v-model="loading"
+        :finished="finished"
+        finished-text="没有更多了"
+        @load="onLoad"
+        class="list"
+        >
+        <div class="list-item" v-for="(item, index) in list" :key="index" @click="toDetail(item)">
+            <div class="list-item-header flex">
+                <div>2019-10-10 12:00:00</div>
+                <div class="list-item-header-dc">待付款</div>
             </div>
-            </van-list>
-        </van-tab>
-    </van-tabs>
+            <div class="list-item-content flex">
+                <div class="flex">
+                    <img class="list-img" src="../../assets/images/aa.jpg" alt="">
+                    <div class="list-txt">
+                        <div class="list-txt-top">伊水一方H2O2水净清</div>
+                        <div style="margin-top:20px;">X1</div>
+                    </div>
+                </div>
+                <div class="list-count"><span>支付金额：</span><span class="money">¥399</span></div>
+            </div>
+            <div class="list-item-footer">
+                <span>详情</span>
+            </div>
+        </div>
+    </van-list>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'orderList',
+  name: 'articleList',
 
   data () {
     return {
-        active: 0,
         list: [],
         loading: false,
         finished: false
@@ -64,18 +59,12 @@ export default {
         }
       }, 500);
     },
-    toDetail(){
-        this.$router.push({
-            path:"/orderDetail"
-        })
-    }
   }
 }
 </script>
 
 <style lang='less' scoped>
-.orderList{
-    background-color: #EEEEEE;
+.articleList{
     .list{
     &-item{
       padding: 30px 33px 5px 30px;

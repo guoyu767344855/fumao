@@ -28,12 +28,13 @@ import {
   AddressEdit,
   Area,
   Tab, 
-  Tabs
+  Tabs,
+  Sku
 } from 'vant'
 
 Vue.use(Toast).use(Button).use(NumberKeyboard).use(AddressList)
 .use(Tabbar).use(TabbarItem).use(Swipe).use(Stepper)
-.use(SwipeItem).use(List).use(Icon).use(Popup)
+.use(SwipeItem).use(List).use(Icon).use(Popup).use(Sku)
 .use(AddressEdit).use(Area).use(Tab).use(Tabs)
 
 /* 路由发生变化修改页面title */
@@ -55,7 +56,7 @@ if ('addEventListener' in document) {
 }
 
 // 模拟数据
-import '../mock/mock'
+// import '../mock/mock'
 
 Vue.config.productionTip = false
 new Vue({
