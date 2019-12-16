@@ -1,5 +1,5 @@
 <template>
-  <div class='addLocation'>
+  <div class='addAddress'>
     <van-address-edit
     :address-info="addressInfo"
     :area-list="areaList"
@@ -20,7 +20,7 @@
 import areaList from "../../assets/js/area";
 import { Toast } from "vant";
 export default {
-  name: 'addLocation',
+  name: 'addAddress',
 
   data () {
     return {
@@ -59,7 +59,7 @@ export default {
 </script>
 
 <style lang='less' scoped>
-.addLocation{
+.addAddress{
     text-align: left;
 }
 </style>

@@ -43,7 +43,7 @@
         </div>
         <div class="footer-center">
             <img src="../../assets/images/Shape.png" alt="">
-            <div>赚￥4.25</div>
+            <div>赚￥{{totalPrice}}</div>
         </div>
         <div class="footer-right" @click="showPopup">立刻购买</div>
     </div>
@@ -61,7 +61,8 @@
         close-on-click-overlay
         safe-area-inset-bottom
         @buy-clicked="onBuyClicked"
-        @add-cart="onAddCartClicked"
+        @sku-selected="skuSelected"
+        @stepper-change="stepperChange"
         >
         <!-- 自定义 sku actions -->
         <template slot="sku-actions" slot-scope="props">
@@ -72,7 +73,7 @@
                 </div>
                 <div class="footer-center">
                     <img src="../../assets/images/Shape.png" alt="">
-                    <div>赚￥4.25</div>
+                    <div>赚￥{{totalPrice}}</div>
                 </div>
                 <div class="footer-right" @click="props.skuEventBus.$emit('sku:buy')">立刻购买</div>
             </div>
@@ -94,30 +95,45 @@ export default {
         goodsId:26,
         quota:0,
         quotaUsed:2,
+        unitPrice:0,
+        totalPrice:0.00,
         details:{},
         sku: {},
         goods: {},
         messageConfig: {}
     }
   },
+  computed:{
+  },
   created(){
-    // console.log(this.$route.query.id)
     this.getDetail(this.$route.query.id)
   },
   methods: {
-      onBuyClicked(query){
-        //   let query = Object.assign(query,{
-        //       price:this.details.price,
-        //   })
-          console.log(query)
-          this.$router.push({
-              path:`/pay`,
-              query
-          })
-      },
-      onAddCartClicked(){
-
-      },
+    // 选择规格
+    skuSelected(e){
+        console.log(e)
+        if(e.selectedSkuComb){
+            this.unitPrice = e.selectedSkuComb.price
+            this.totalPrice = (e.selectedSkuComb.price*this.value/100).toFixed(2)
+        }
+    },
+    // 选择数量
+    stepperChange(e){
+        console.log(e)
+        this.value = e
+        this.totalPrice = this.unitPrice*e/100
+    },
+    // 立即购买
+    onBuyClicked(skuData){
+        // console.log(skuData.selectedSkuComb.id)
+        this.$router.push({
+            path:`pay`,
+            query:{
+                id:skuData.selectedSkuComb.id,
+                count:this.value
+            }
+        })
+    },
     //   获取商品信息
     getDetail(id){
         getDetail(id).then(res=>{

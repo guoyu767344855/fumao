@@ -29,13 +29,14 @@ import {
   Area,
   Tab, 
   Tabs,
-  Sku
+  Sku,
+  Field
 } from 'vant'
 
 Vue.use(Toast).use(Button).use(NumberKeyboard).use(AddressList)
 .use(Tabbar).use(TabbarItem).use(Swipe).use(Stepper)
 .use(SwipeItem).use(List).use(Icon).use(Popup).use(Sku)
-.use(AddressEdit).use(Area).use(Tab).use(Tabs)
+.use(AddressEdit).use(Area).use(Tab).use(Tabs).use(Field)
 
 /* 路由发生变化修改页面title */
 router.beforeEach((to, from, next) => {

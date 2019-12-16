@@ -2,7 +2,7 @@
 module.exports = {
   title: 'vue-h5-template',
   api: {
-    base_api: 'https://xxx.xxx.com/admin',
-    common_api: 'https://xxx.xxx.com/common'
+    base_api: 'http://api-test.hangim.com/',
+    common_api: 'http://api-test.hangim.com/'
   }
 }

@@ -40,6 +40,7 @@ export const constantRoutes = [
   },
   {
     path: '/pay',
+    name:'pay',
     meta:{
       title: '确认订单',
       keepAlive: false
@@ -47,20 +48,20 @@ export const constantRoutes = [
     component: () => import('@/views/pay/index')
   },
   {
-    path: '/location',
+    path: '/address',
     meta:{
       title: '收货地址',
       keepAlive: false
     },
-    component: () => import('@/views/location/index')
+    component: () => import('@/views/address/index')
   },
   {
-    path: '/addLocation',
+    path: '/addAddress',
     meta:{
       title: '添加地址',
       keepAlive: false
     },
-    component: () => import('@/views/addLocation/index')
+    component: () => import('@/views/addAddress/index')
   },
   {
     path: '/orderList',

@@ -1,5 +1,5 @@
 <template>
-  <div class='location'>
+  <div class='address'>
     <div v-if="list.length == 0" class="noList">暂无收货地址，快添加一个吧～</div>
       <van-address-list
         v-model="chosenAddressId"
@@ -17,7 +17,7 @@
 
 <script>
 export default {
-  name: 'location',
+  name: 'address',
 
   data () {
     return {
@@ -74,7 +74,7 @@ export default {
 </script>
 
 <style lang='less' scoped>
-.location{
+.address{
     background-color: #f5f5f5;
     height: 100%;
     text-align: center;

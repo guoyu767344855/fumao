@@ -1,8 +1,9 @@
 import request from '@/utils/request'
 
-export function getDetail(data) {
+export function createOrder(data) {
   return request({
-    url:'/product/detail/'+data,
-    method: 'get',
+    url:'/order/create',
+    method: 'post',
+    data
   })
 }

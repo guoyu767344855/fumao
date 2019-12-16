@@ -2,12 +2,15 @@
   <div class='pay'>
     <div class="location" @click="toLocation">
         <van-icon class="location-lef" name="location" />
-        <div class="location-mid">
+        <div v-if="addressList.length != 0" class="location-mid">
             <div>
-                <span class="location-mid-name">测试小二</span>
-                <span>12345678910</span>
+                <span class="location-mid-name">{{address.name}}</span>
+                <span>{{address.phoneNumber}}</span>
             </div>
-            <div>浙江省 杭州市 余杭区 文一西路1888号阿里巴巴园区6号楼收</div>
+            <div>{{address.province}} {{address.city}} {{address.region}} {{address.detailAddress}}</div>
+        </div>
+        <div v-else class="location-mid">
+            请添加收货地址
         </div>
         <van-icon class="location-rig" name="arrow" />
     </div>
@@ -15,17 +18,19 @@
         <img class="goods-img" src="../../assets/images/aa.jpg" alt="">
         <div class="goods-rig">
             <div class="goods-rig-one">伊水一方H2O2水净清</div>
-            <div class="goods-rig-two">规格：默认</div>
-            <div class="goods-rig-thr">¥299</div>
+            <div class="goods-rig-two">规格：
+                <span>{{details.attr}}</span>
+            </div>
+            <div class="goods-rig-thr">¥{{details.price}}</div>
         </div>
     </div>
     <div class="line">
         <div class="line-left">数量</div>
-        <van-stepper v-model="detail.selectedNum" integer />
+        <van-stepper v-model="count" integer />
     </div>
     <div class="line">
         <div class="line-left">商品金额</div>
-        <div class="line-num">¥{{detail.selectedSkuComb.price}}</div>
+        <div class="line-num">¥{{totalPrice}}</div>
     </div>
     <div class="line">
         <div class="line-left">运费</div>
@@ -33,11 +38,11 @@
     </div>
     <div class="line">
         <div class="line-left">备注</div>
-        <div class="line-txt">选填</div>
+        <input class="line-txt" maxlength="20" placeholder="选填" v-model="remark"/>
     </div>
     <div class="footer">
         <div class="footer-center">
-            <div>总计: ￥{{detail.selectedSkuComb.price}}</div>
+            <div>总计: ￥{{totalPrice}}</div>
         </div>
         <div class="footer-right" @click="pay">立刻购买</div>
     </div>
@@ -45,22 +50,66 @@
 </template>
 
 <script>
+import {getDetail} from '@/api/pay'
+import {list} from '@/api/address'
+import {createOrder} from '@/api/order'
+import {pay} from '@/utils/pay'
 export default {
   name: 'pay',
 
   data () {
     return {
-        detail:{}
+        id:null,
+        count:1,
+        remark:'',
+        message:'',
+        details:{},
+        address:{},
+        addressList:[]
     }
   },
   created(){
-      console.log(this.$route.query)
-      this.detail = this.$route.query
+    console.log(this.$route.query)
+    this.id = this.$route.query.id
+    this.count = this.$route.query.count
+    this.getDetails()
+    this.getAddress()
+  },
+  computed:{
+      totalPrice(){
+          return (this.count*this.details.price).toFixed(2)
+      }
   },
   methods: {
+    //   获取地理位置
+    getAddress(){
+        list().then(res=>{
+            console.log(res.data[0])
+            this.addressList = res.data
+            this.address = this.addressList[0]
+        })
+    },
+    // 获取页面数据
+    getDetails(){
+        getDetail(this.id).then(res=>{
+            console.log(res)
+            this.details = res.data
+        })
+    },
     // 支付
     pay(){
-
+        let data = {
+            addressId:this.addressList[0].id,
+            qty:this.count,
+            skuId:this.id,
+            remark:this.remark
+        }
+        createOrder(data).then(res=>{
+            console.log(res)
+            pay(res.data).then(res=>{
+                console.log(res)
+            })
+        })
     },
     // 去地理位置
     toLocation(){
@@ -130,6 +179,7 @@ export default {
         &-mid{
             text-align: left;
             flex-shrink: 1;
+            flex-grow: 1;
             font-size:30px;
             font-family:PingFangSC-Regular,PingFang SC;
             font-weight:400;
@@ -199,6 +249,7 @@ export default {
             font-weight:400;
             color:rgba(0,0,0,1);
             line-height:48px;
+            flex-shrink: 0;
         }
         &-num{
             font-size:34px;
@@ -213,6 +264,8 @@ export default {
             font-weight:400;
             color:rgba(144,143,143,1);
             line-height:48px;
+            text-align: right;
+            border: none;
         }
     }
 }
