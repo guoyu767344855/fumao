@@ -99,7 +99,7 @@ export default {
     // 去地理位置
     toLocation(){
         this.$router.push({
-            path:"/location"
+            path:"/address"
         })
     },
     // 去我的订单
