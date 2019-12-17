@@ -15,3 +15,10 @@ export function orderList(data) {
     data
   })
 }
+
+export function orderDetail(data) {
+  return request({
+    url:'/order/'+ data,
+    method: 'get'
+  })
+}

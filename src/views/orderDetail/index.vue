@@ -1,28 +1,28 @@
 <template>
   <div class='orderDetail'>
-    <div class="header">待付款</div>
+    <div class="header">{{details.status | statusFilter}}</div>
     <div class="location">
         <van-icon class="location-lef" name="location" />
         <div class="location-mid">
             <div>
-                <span class="location-mid-name">测试小二</span>
-                <span>12345678910</span>
+                <span class="location-mid-name">{{details.receiverName}}</span>
+                <span>{{details.receiverPhone}}</span>
             </div>
-            <div>浙江省 杭州市 余杭区 文一西路1888号阿里巴巴园区6号楼收</div>
+            <div>{{details.receiverProvince}} {{details.receiverCity}} {{details.receiverRegion}} {{details.receiverDetailAddress}}</div>
         </div>
         <van-icon class="location-rig" name="arrow" />
     </div>
     <div class="goods">
         <img class="goods-img" src="../../assets/images/aa.jpg" alt="">
         <div class="goods-rig">
-            <div class="goods-rig-one">伊水一方H2O2水净清</div>
+            <div class="goods-rig-one">{{details.productName}}</div>
             <div class="goods-rig-two">规格：默认</div>
-            <div class="goods-rig-thr">¥299</div>
+            <div class="goods-rig-thr">¥{{details.payAmount}}</div>
         </div>
     </div>
     <div class="line">
         <div class="line-left">数量</div>
-        <van-stepper v-model="value" integer />
+        <van-stepper v-model="value" integer :disabled="details.status == 0 ? false : true"/>
     </div>
     <div class="line">
         <div class="line-left">运费</div>
@@ -30,11 +30,11 @@
     </div>
     <div class="line">
         <div class="line-left">备注</div>
-        <div class="line-txt">选填</div>
+        <input class="line-txt" maxlength="20" placeholder="选填" v-model="remark" :disabled="details.status == 0 ? false : true"/>
     </div>
     <div class="line">
         <div class="line-left">总计</div>
-        <div class="line-num">¥199</div>
+        <div class="line-num">¥{{details.totalAmount}}</div>
     </div>
     <div class="lin"></div>
     <div>
@@ -44,17 +44,17 @@
         <div>
             <div class="detail">
                 <div>订单编号</div>
-                <div>20191101012010210</div>
+                <div>{{details.orderSn}}</div>
                 <div class="copy">复制</div>
             </div>
             <div class="detail">
                 <div>创建时间</div>
-                <div>2019-11-20 12:00:00</div>
+                <div>{{details.createTime}}</div>
             </div>
         </div>
     </div>
     <div class="lin"></div>
-    <div class="footer">
+    <div class="footer" v-if="details.status == 0 ? true : false">
         <div class="footer-left">
             <van-icon class="service-o" name="service-o" />
             <div>客服</div>
@@ -68,15 +68,45 @@
 </template>
 
 <script>
+import {orderDetail} from '@/api/order'
 export default {
   name: 'orderDetail',
 
   data () {
     return {
-        value:1
+        value:1,
+        id:null,
+        remark:'',
+        details:{}
     }
   },
-
+  created(){
+    console.log(this.$route.query.id)
+    if(this.$route.query.id){
+        this.id = this.$route.query.id
+    }
+    orderDetail(this.id).then(res=>{
+        console.log(res)
+        this.details = res.data
+    })
+  },
+  filters:{
+    statusFilter(e){
+      if(e==0){
+        return '待付款'
+      }else if(e==1){
+        return '待发货'
+      }else if(e==2){
+        return '已发货'
+      }else if(e==3){
+        return '已完成'
+      }else if(e==4){
+        return '已关闭'
+      }else if(e==5){
+        return '无效订单'
+      }
+    }
+  },
   methods: {
     // 支付
     pay(){
@@ -99,6 +129,7 @@ export default {
         border:1px solid rgba(133,133,133,1);
         z-index: 10000;
         background-color: #ffffff;
+        text-align: center;
         &-left{
             flex: 1;
             font-size:20px;
@@ -252,6 +283,9 @@ export default {
             font-weight:400;
             color:rgba(144,143,143,1);
             line-height:48px;
+            text-align: right;
+            border: none;
+            background-color: #ffffff;
         }
     }
     .lin{

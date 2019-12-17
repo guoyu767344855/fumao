@@ -1,8 +1,8 @@
 <template>
   <div class='orderList'>
-    <van-tabs v-model="active" sticky>
+    <van-tabs v-model="active" sticky  @click="chooseStatus">
         <van-tab v-for="(item,index) in statusList" :key="index" :title="item.title">
-            <div v-if="list.length == 0" class="noList">暂无订单~</div>
+            <!-- <div v-if="list.length == 0" class="noList">暂无订单~</div> -->
             <van-list
             v-model="loading"
             :finished="finished"
@@ -12,18 +12,18 @@
             >
             <div class="list-item" v-for="(item, index) in list" :key="index" @click="toDetail(item)">
                 <div class="list-item-header flex">
-                    <div>2019-10-10 12:00:00</div>
-                    <div class="list-item-header-dc">待付款</div>
+                    <div>{{item.createTime}}</div>
+                    <div class="list-item-header-dc">{{item.status | statusFilter}}</div>
                 </div>
                 <div class="list-item-content flex">
                     <div class="flex">
-                        <img class="list-img" src="../../assets/images/aa.jpg" alt="">
+                        <img class="list-img" :src="item.productPic" alt="">
                         <div class="list-txt">
-                            <div class="list-txt-top">伊水一方H2O2水净清</div>
+                            <div class="list-txt-top">{{item.productName}}</div>
                             <div style="margin-top:20px;">X1</div>
                         </div>
                     </div>
-                    <div class="list-count"><span>支付金额：</span><span class="money">¥399</span></div>
+                    <div class="list-count"><span>支付金额：</span><span class="money">¥{{item.payAmount}}</span></div>
                 </div>
                 <div class="list-item-footer">
                     <span>详情</span>
@@ -36,6 +36,7 @@
 </template>
 
 <script>
+import {orderList} from '@/api/order'
 export default {
   name: 'orderList',
 
@@ -52,16 +53,53 @@ export default {
           {status:3,title:'已完成'},
           {status:4,title:'已关闭'},
           {status:5,title:'无效订单'},
-        ]
+        ],
+        pageQyery:{
+          pageIndex: 1,
+          pageSize: 10,
+          sortDirection: "string",
+          sortField: "string",
+          status:0
+        },
     }
   },
-
+  filters:{
+    statusFilter(e){
+      if(e==0){
+        return '待付款'
+      }else if(e==1){
+        return '待发货'
+      }else if(e==2){
+        return '已发货'
+      }else if(e==3){
+        return '已完成'
+      }else if(e==4){
+        return '已关闭'
+      }else if(e==5){
+        return '无效订单'
+      }
+    }
+  },
   methods: {
+    // 选择订单状态
+    chooseStatus(e){
+      console.log(e)
+      this.list = []
+      this.finished = false
+      this.pageQyery = {
+          pageIndex: 1,
+          pageSize: 10,
+          sortDirection: "string",
+          sortField: "string",
+          status:e
+      }
+      this.onLoad()
+    },
     // 获取列表详情
     getList(){
       console.log(this.pageQyery.pageIndex)
-      list(this.pageQyery).then(res=>{
-        console.log('商品列表',res)
+      orderList(this.pageQyery).then(res=>{
+        console.log('订单列表',res)
         this.list = this.list.concat(res.list);
         this.loading = false;
         this.pageQyery.pageIndex ++ 
@@ -71,23 +109,11 @@ export default {
       })
     },
     onLoad() {
-      // 异步更新数据
-      setTimeout(() => {
-        for (let i = 0; i < 10; i++) {
-          this.list.push(this.list.length + 1);
-        }
-        // 加载状态结束
-        this.loading = false;
-
-        // 数据全部加载完成
-        if (this.list.length >= 80) {
-          this.finished = true;
-        }
-      }, 500);
+      this.getList();
     },
-    toDetail(){
+    toDetail(item){
         this.$router.push({
-            path:"/orderDetail"
+            path:"/orderDetail?id="+item.id
         })
     }
   }
@@ -96,12 +122,11 @@ export default {
 
 <style lang='less' scoped>
 .orderList{
-    background-color: #EEEEEE;
     .list{
     &-item{
       padding: 30px 33px 5px 30px;
       text-align: left;
-      margin-bottom: 15px;
+      border-bottom: 15px solid #EEEEEE;
       background-color: #ffffff;
       &-header{
         font-size:20px;
@@ -166,9 +191,6 @@ export default {
         display: flex;
         justify-content: space-between;
     }
-  }
-  .noList{
-      line-height: 100vh;
   }
 }
 </style>
