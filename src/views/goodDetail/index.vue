@@ -374,6 +374,7 @@ export default {
         }
     }
     .bottom{
+        width: 750px;
         &-title{
             font-size:36px;
             font-family:PingFangSC-Regular,PingFang SC;
@@ -383,12 +384,17 @@ export default {
             text-align: left;
             margin: 25px;
         }
-        .detailHtml{
-            width: 750px;
-        }
     }
     .sku{
         color: black !;
     }
+}
+</style>
+<style>
+.detailHtml{
+    width: 750px;
+}
+.detailHtml img{
+    width: 100%;
 }
 </style>
