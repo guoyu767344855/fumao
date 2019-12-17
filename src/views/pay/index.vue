@@ -15,9 +15,9 @@
         <van-icon class="location-rig" name="arrow" />
     </div>
     <div class="goods">
-        <img class="goods-img" src="../../assets/images/aa.jpg" alt="">
+        <img class="goods-img" :src="details.pic" alt="">
         <div class="goods-rig">
-            <div class="goods-rig-one">伊水一方H2O2水净清</div>
+            <div class="goods-rig-one">{{details.productName}}</div>
             <div class="goods-rig-two">规格：
                 <span>{{details.attr}}</span>
             </div>
@@ -69,7 +69,7 @@ export default {
     }
   },
   created(){
-    console.log(this.$route.query)
+    // console.log(this.$store.state.app.addressId)
     this.id = this.$route.query.id
     this.count = this.$route.query.count
     this.getDetails()
@@ -78,6 +78,14 @@ export default {
   computed:{
       totalPrice(){
           return (this.count*this.details.price).toFixed(2)
+      },
+      addressId(){
+          return this.$store.state.app.addressId
+      }
+  },
+  watch:{
+      addressId(e){
+          console.log(e)
       }
   },
   methods: {
@@ -114,7 +122,7 @@ export default {
     // 去地理位置
     toLocation(){
         this.$router.push({
-            path:"/address"
+            path:"/address?id=" + this.address.id
         })
     }
   }

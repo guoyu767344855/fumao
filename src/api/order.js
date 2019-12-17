@@ -7,3 +7,11 @@ export function createOrder(data) {
     data
   })
 }
+
+export function orderList(data) {
+  return request({
+    url:'/order/pagedQuery',
+    method: 'post',
+    data
+  })
+}

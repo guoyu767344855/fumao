@@ -3,7 +3,7 @@ import request from '@/utils/request'
 export function pay(orderId) {
     return new Promise((resolved,rejected)=>{
     request({
-        url:'/pay/weChat/jsApi',
+        url:'/pay/wechat/jsApi',
         method: 'post',
         data:{orderId}
       }).then(res=>{

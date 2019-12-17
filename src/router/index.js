@@ -33,7 +33,7 @@ export const constantRoutes = [
   {
     path: '/goodDetail',
     meta:{
-      title: '订单详情',
+      title: '商品详情',
       keepAlive: false
     },
     component: () => import('@/views/goodDetail/index')
@@ -94,6 +94,22 @@ export const constantRoutes = [
       keepAlive: false
     },
     component: () => import('@/views/article/index')
+  },
+  {
+    path: '/member',
+    meta:{
+      title: '会员中心',
+      keepAlive: false
+    },
+    component: () => import('@/views/member/index')
+  },
+  {
+    path: '/product',
+    meta:{
+      title: '产品中心',
+      keepAlive: false
+    },
+    component: () => import('@/views/product/index')
   }
 ]
 

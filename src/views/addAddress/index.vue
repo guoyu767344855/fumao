@@ -3,11 +3,8 @@
     <van-address-edit
     :address-info="addressInfo"
     :area-list="areaList"
-    show-postal
     :show-delete="isEdit"
     show-set-default
-    show-search-result
-    :search-result="searchResult"
     :area-columns-placeholder="['请选择', '请选择', '请选择']"
     @save="onSave"
     @delete="onDelete"
@@ -19,6 +16,7 @@
 <script>
 import areaList from "../../assets/js/area";
 import { Toast } from "vant";
+import { add , update , Delete} from '@/api/address'
 export default {
   name: 'addAddress',
 
@@ -40,9 +38,36 @@ export default {
   methods: {
     onSave(item) {
       console.log(item)
+      let data = {
+        "city": item.city,
+        "defaultStatus": item.isDefault ? 1 : 0,
+        "detailAddress": item.addressDetail,
+        "name": item.name,
+        "phoneNumber": item.tel,
+        "province": item.province,
+        "region": item.county,
+        "areaCode": item.areaCode
+      }
+      console.log(data)
+      if(this.isEdit){
+        data = Object.assign(data,{id:this.$route.query.id})
+        update(data).then(res=>{
+          console.log('更新',res)
+          this.$router.go(-1)
+        })
+      }else{
+        add(data).then(res=>{
+          console.log('保存',res)
+          this.$router.go(-1)
+        })
+      }
     },
-    onDelete() {
-        Toast("delete");
+    onDelete(item) {
+      console.log(item)
+        Delete(item.id).then(res=>{
+          console.log(res)
+          this.$router.go(-1)
+        })
     },
     onChangeDetail(val) {
       if (val) {

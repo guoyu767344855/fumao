@@ -57,7 +57,20 @@ export default {
   },
 
   methods: {
-      onLoad() {
+    // 获取列表详情
+    getList(){
+      console.log(this.pageQyery.pageIndex)
+      list(this.pageQyery).then(res=>{
+        console.log('商品列表',res)
+        this.list = this.list.concat(res.list);
+        this.loading = false;
+        this.pageQyery.pageIndex ++ 
+        if (this.list.length >= res.total) {
+          this.finished = true;
+        }
+      })
+    },
+    onLoad() {
       // 异步更新数据
       setTimeout(() => {
         for (let i = 0; i < 10; i++) {

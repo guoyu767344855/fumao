@@ -20,8 +20,8 @@
     <div class="line"></div>
     <div class="middle">
         <div class="middle-left">规格</div>
-        <div class="middle-right">
-            <span>选择规格</span>
+        <div class="middle-right" @click="showPopup">
+            <span>{{specification ? specification : '选择规格'}}</span>
             <van-icon name="arrow" />
         </div>
     </div>
@@ -101,7 +101,8 @@ export default {
         details:{},
         sku: {},
         goods: {},
-        messageConfig: {}
+        messageConfig: {},
+        specification:''
     }
   },
   computed:{
@@ -116,6 +117,16 @@ export default {
         if(e.selectedSkuComb){
             this.unitPrice = e.selectedSkuComb.price
             this.totalPrice = (e.selectedSkuComb.price*this.value/100).toFixed(2)
+        }
+        if(e.selectedSkuComb){
+            for(var name in e.selectedSkuComb){
+                if(/.*[\u4e00-\u9fa5]+.*/.test(name)){
+                    console.log(name)
+                    this.specification += name+": "+ e.selectedSkuComb[name]+"\r\n ";
+                }
+            }
+        }else{
+            this.specification = ''
         }
     },
     // 选择数量
@@ -327,7 +338,7 @@ export default {
                 margin: 10px 0; 
             }
             &-count{
-                font-size:20px;
+                font-size:24px;
                 font-family:PingFangSC-Regular,PingFang SC;
                 font-weight:400;
                 color:rgba(0,0,0,1);
@@ -356,7 +367,7 @@ export default {
         display: flex;
         align-items: center;
         margin: 25px;
-        font-size:20px;
+        font-size:24px;
         font-family:PingFangSC-Regular,PingFang SC;
         font-weight:400;
         color:rgba(0,0,0,1);

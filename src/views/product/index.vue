@@ -1,22 +1,6 @@
 <!-- home -->
 <template>
   <div class="home">
-    <div>
-      <van-swipe class="swiper" :autoplay="3000" indicator-color="white">
-        <van-swipe-item class="swiper-item" v-for="(item,index) in bannerList" :key="index">
-          <img class="swiper-img" :src="item" alt="">
-        </van-swipe-item>
-      </van-swipe>
-    </div>
-    <div class="iconList">
-      <div v-for="(item,index) in iconList" :key="index" @click="toIcon(item.route)">
-        <img class="iconList-img" :src="item.pic" alt="">
-        <div class="iconList-text">{{item.name}}</div>
-      </div>
-    </div>
-    <div class="line">
-      为你推荐
-    </div>
     <van-list
       v-model="loading"
       :finished="finished"
@@ -80,7 +64,7 @@ export default {
         {
           pic:require('../../assets/images/shangxue.png'),
           name:'商学院',
-          route:'/business'
+          route:'/member'
         },
       ],
       pageQyery:{

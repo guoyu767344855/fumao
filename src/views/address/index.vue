@@ -6,6 +6,7 @@
         :list="list"
         @add="onAdd"
         @edit="onEdit"
+        @select="chooseAddress"
         class="locction-item"
         />
     <!-- <div class="footer">
@@ -16,58 +17,63 @@
 </template>
 
 <script>
+import {list} from '@/api/address'
 export default {
-  name: 'address',
+  name: '',
 
   data () {
     return {
-      chosenAddressId: '1',
-      list: [
-        {
-          id: '1',
-          name: '张三',
-          tel: '13000000000',
-          address: '浙江省杭州市西湖区文三路 138 号东方通信大厦 7 楼 501 室',
-          addressDetail: "杭州市西湖区 黄龙万科中心",
-          areaCode: "110102",
-          city: "北京市",
-          country: "",
-          county: "西城区",
-          isDefault: false,
-          postalCode: "046100",
-          province: "北京市",
-        },
-        {
-          id: '2',
-          name: '李四',
-          tel: '13000000000',
-          address: '浙江省杭州市西湖区文三路 138 号东方通信大厦 7 楼 501 室',
-          addressDetail: "杭州市西湖区 黄龙万科中心",
-          areaCode: "110102",
-          city: "北京市",
-          country: "",
-          county: "西城区",
-          isDefault: false,
-          postalCode: "046100",
-          province: "北京市",
-        }
-      ]
+      chosenAddressId: 0,
+      list: []
     }
   },
-
+  created(){
+    if(this.$route.query.id){
+      this.chosenAddressId = `${this.$route.query.id}`
+    }
+    list().then(res=>{
+      console.log(res)
+      let addressList = res.data
+      addressList = addressList.map(item=>{
+        return item = {
+          id: `${item.id}`,
+          name: item.name,
+          tel: item.phoneNumber,
+          address: item.province + item.city + item.region + item.detailAddress,
+          addressDetail: item.detailAddress,
+          areaCode: item.areaCode,
+          city: item.city,
+          country: "",
+          county: item.region,
+          isDefault: item.defaultStatus ? true : false,
+          postalCode: item.postCode,
+          province: item.province,
+        }
+      })
+      console.log('映射',addressList)
+      this.list = addressList
+    })
+  },
   methods: {
+    // 添加地址
     onAdd() {
       this.$router.push({
-        path:'/addLocation'
+        path:'/addAddress'
       })
     },
-
+  // 修改地址
     onEdit(item, index) {
       console.log(item,index)
       this.$router.push({
-        path:'/addLocation',
+        path:'/addAddress',
         query:item
       })
+    },
+  // 选择地址
+    chooseAddress(e){
+      console.log(e)
+      this.$store.commit('add',e.id)
+      this.$router.go(-1)
     }
   }
 }

@@ -5,7 +5,7 @@
         <img class="header-img" src="../../assets/images/aa.jpg" alt="">
         <div class="header-user">
           <div class="header-user-name">{{userInfo.username}}</div>
-          <div class="header-user-dc">用户描述描述描述</div>
+          <img class="header-user-dc" :src="userDec" alt="">
         </div>
       </div>
       <div class="header-right" @click="toLocation">
@@ -15,20 +15,20 @@
     </div>
     <div class="shouyi">
       <div class="shouyi-item">
-        <div class="shouyi-item-num">15</div>
+        <div class="shouyi-item-num">0</div>
         <div class="shouyi-item-txt">今日收益</div>
       </div>
       <div class="shouyi-item">
-        <div class="shouyi-item-num">15</div>
-        <div class="shouyi-item-txt">今日收益</div>
+        <div class="shouyi-item-num">0</div>
+        <div class="shouyi-item-txt">本月收益</div>
       </div>
       <div class="shouyi-item">
-        <div class="shouyi-item-num">15</div>
-        <div class="shouyi-item-txt">今日收益</div>
+        <div class="shouyi-item-num">0</div>
+        <div class="shouyi-item-txt">累计收益</div>
       </div>
       <div class="shouyi-item">
-        <div class="shouyi-item-num">15</div>
-        <div class="shouyi-item-txt">今日收益</div>
+        <div class="shouyi-item-num">0</div>
+        <div class="shouyi-item-txt">我的粉丝</div>
       </div>
     </div>
     <div class="line"></div>
@@ -40,9 +40,9 @@
       </div>
     </div>
     <div class="shouyi">
-      <div class="shouyi-item" v-for="(item, index) in 4" :key="index">
-        <img class="shouyi-item-img" src="../../assets/images/my.png" alt="">
-        <div class="shouyi-item-txt">待付款</div>
+      <div class="shouyi-item" v-for="(item, index) in orderList" :key="index">
+        <img class="shouyi-item-img" :src="item.pic" alt="">
+        <div class="shouyi-item-txt">{{item.name}}</div>
       </div>
     </div>
     <div class="line"></div>
@@ -68,31 +68,57 @@ export default {
   data () {
     return {
       userInfo:{},
+      orderList:[
+        {
+          name:'待付款',
+          pic:require('../../assets/images/pay.png')
+        },
+        {
+          name:'待发货',
+          pic:require('../../assets/images/fahuo.png')
+        },
+        {
+          name:'待收货',
+          pic:require('../../assets/images/shou.png')
+        },
+        {
+          name:'全部订单',
+          pic:require('../../assets/images/order.png')
+        },
+      ],
       moreList:[
         {
-          pic:'',
+          pic:require('../../assets/images/kefu.png'),
           name:'客服'
         },
         {
-          pic:'',
-          name:'联系我们'
-        },
-        {
-          pic:'',
+          pic:require('../../assets/images/bind.png'),
           name:'绑定手机'
         },
         {
-          pic:'',
-          name:'绑定手机',
-          dc:'描述文字'
+          pic:require('../../assets/images/about.png'),
+          name:'关于我们',
+          dc:''
         }
-      ]
+      ],
+      userDec:''
     }
   },
   created(){
     getUserInfo().then(res=>{
       console.log(res)
       this.userInfo = res.data
+      if(res.data.level == 0){
+        this.userDec = require('../../assets/images/liren.png')
+      }else if(res.data.level == 1){
+        this.userDec = require('../../assets/images/yiren.png')
+      }else if(res.data.level == 2){
+        this.userDec = require('../../assets/images/aixin.png')
+      }else if(res.data.level == 3){
+        this.userDec = require('../../assets/images/CEO.png')
+      }else if(res.data.level == 4){
+        this.userDec = require('../../assets/images/lianchuang.png')
+      }
     })
   },
   methods: {
@@ -135,11 +161,9 @@ export default {
         line-height:48px;
       }
       &-dc{
-        font-size:28px;
-        font-family:PingFangSC-Regular,PingFang SC;
-        font-weight:400;
-        color:rgba(153,153,153,1);
-        line-height:40px;
+        width: 120px;
+        height: 45px;
+        margin-top: 15px;
       }
     }
     &-left{
@@ -156,8 +180,7 @@ export default {
       color:rgba(51,51,51,1);
       line-height:48px;
       background-color: #D8D8D8;
-      padding: 2px 0;
-      padding-left: 10px;
+      padding: 2px 10px;
       border:1px solid #979797;
       border-top-left-radius: 50px;
       border-bottom-left-radius: 50px;
@@ -169,6 +192,7 @@ export default {
     padding: 0 33px;
     justify-content: space-around;
     padding: 20px 0;
+    text-align: center;
     &-item{
       &-num{
         font-size:60px;
@@ -193,8 +217,8 @@ export default {
   }
   .line{
     height:20px;
-    background:rgba(216,216,216,1);
-    border:1px solid rgba(151,151,151,1);
+    background:#EEEEEE;
+    border:1px solid #EEEEEE;
   }
   .myOrder{
     display: flex;
@@ -233,7 +257,6 @@ export default {
     &-img{
       width:60px;
       height:60px;
-      background:rgba(221,221,221,1);
       border-radius:2px;
       margin-right: 32px;
       margin-top: -10px;

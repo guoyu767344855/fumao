@@ -1,6 +1,6 @@
 <template>
   <div class="footer">
-    <van-tabbar route v-model="active">
+    <van-tabbar route v-model="active" safe-area-inset-bottom border>
         <van-tabbar-item
             v-for="(item,index) in iconList"
             :key="index"

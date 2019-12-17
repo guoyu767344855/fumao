@@ -1,18 +1,15 @@
-const state = {
-  
+const app = {
+  state: {
+    addressId:''
+  },
+  mutations: {
+    add: (state,addressId) => {
+      state.addressId = addressId
+    }
+  },
+  getters: {
+  },
+  actions: {
+  }
 }
-
-const mutations = {
-  
-}
-
-const actions = {
-   
-}
-
-export default {
-  namespaced: true,
-  state,
-  mutations,
-  actions
-}
+export default app
