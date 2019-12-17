@@ -48,6 +48,7 @@
         <div class="footer-right" @click="showPopup">立刻购买</div>
     </div>
     <van-sku
+        class="sku"
         v-model="show"
         stepper-title="数量"
         :sku="sku"
@@ -385,6 +386,9 @@ export default {
         .detailHtml{
             width: 750px;
         }
+    }
+    .sku{
+        color: black !;
     }
 }
 </style>

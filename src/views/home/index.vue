@@ -185,6 +185,7 @@ export default {
     &-img{
       width:200px;
       height:200px;
+      flex-shrink: 0;
       background:rgba(241,248,255,1);
       border-radius:2px;
     }
