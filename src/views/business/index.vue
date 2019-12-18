@@ -111,6 +111,7 @@ export default {
       padding: 100px 32px 20px 32px;
       border-bottom: 1px solid #EEEEEE;
       &-left{
+        flex-grow: 1;
         font-size:28px;
         font-family:PingFangSC-Regular,PingFang SC;
         font-weight:400;
