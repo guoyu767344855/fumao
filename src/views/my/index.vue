@@ -15,19 +15,19 @@
     </div>
     <div class="shouyi">
       <div class="shouyi-item">
-        <div class="shouyi-item-num">0</div>
+        <div class="shouyi-item-num">{{memberInfo.predictOfToday}}</div>
         <div class="shouyi-item-txt">今日收益</div>
       </div>
       <div class="shouyi-item">
-        <div class="shouyi-item-num">0</div>
+        <div class="shouyi-item-num">{{memberInfo.predictOfThisMonth}}</div>
         <div class="shouyi-item-txt">本月收益</div>
       </div>
       <div class="shouyi-item">
-        <div class="shouyi-item-num">0</div>
+        <div class="shouyi-item-num">{{memberInfo.predictOfTotal}}</div>
         <div class="shouyi-item-txt">累计收益</div>
       </div>
       <div class="shouyi-item">
-        <div class="shouyi-item-num">0</div>
+        <div class="shouyi-item-num">{{memberInfo.fansCount}}</div>
         <div class="shouyi-item-txt">我的粉丝</div>
       </div>
     </div>
@@ -47,7 +47,7 @@
     </div>
     <div class="line"></div>
     <div class="more">更多服务</div>
-    <div class="moreList" v-for="(item, index) in moreList" :key="index">
+    <div class="moreList" v-for="(item, index) in moreList" :key="index" @click="toMore(index)">
       <img class="moreList-img" :src="item.pic" alt="">
       <div class="moreList-right">
         <div>{{item.name}}</div>
@@ -62,6 +62,7 @@
 
 <script>
 import {getUserInfo} from '@/api/my'
+import {memberInfo} from '@/api/member'
 export default {
   name: 'my',
 
@@ -95,20 +96,25 @@ export default {
           pic:require('../../assets/images/kefu.png'),
           name:'客服'
         },
-        {
-          pic:require('../../assets/images/bind.png'),
-          name:'绑定手机'
-        },
+        // {
+        //   pic:require('../../assets/images/bind.png'),
+        //   name:'绑定手机'
+        // },
         {
           pic:require('../../assets/images/about.png'),
           name:'关于我们',
           dc:''
         }
       ],
-      userDec:''
+      userDec:'',
+      memberInfo:{}
     }
   },
   created(){
+    memberInfo().then(res=>{
+      console.log(res)
+      this.memberInfo = res.data
+    })
     getUserInfo().then(res=>{
       console.log(res)
       this.userInfo = res.data
@@ -126,6 +132,14 @@ export default {
     })
   },
   methods: {
+    // 更多服务
+    toMore(index){
+      if(index == 0){
+        window.location.href = 'https://xiaokefu.com.cn/s/11272kto0'
+      }else if(index == 1){
+        window.location.href = 'https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzU2Nzc0MzU5Mg==&scene=123#wechat_redirect'
+      }
+    },
     // 去地理位置
     toLocation(){
         this.$router.push({

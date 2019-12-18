@@ -6,7 +6,7 @@ export const constantRoutes = [
   {
     path: '/',
     meta: {
-      title: '伊水一方',
+      title: '富猫',
       keepAlive: false,
       footer:true
     },

@@ -21,8 +21,10 @@
     "normalize.css": "7.0.0",
     "vant": "^2.2.16",
     "vue": "2.6.10",
+    "vue-clipboard2": "^0.3.1",
     "vue-router": "3.0.6",
-    "vuex": "3.1.0"
+    "vuex": "3.1.0",
+    "weixin-js-sdk": "^1.4.0-test"
   },
   "devDependencies": {
     "@babel/core": "7.0.0",

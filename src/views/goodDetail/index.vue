@@ -12,7 +12,7 @@
                 <span>销量：{{details.sale}}</span>
             </div>
         </div>
-        <div class="topName-right">
+        <div class="topName-right" @click="openShare">
             <img class="topName-right-img" src="../../assets/images/share.png" alt="">
             <div>分享</div>
         </div>
@@ -39,9 +39,9 @@
     <div class="footer" v-if="!show">
         <div class="footer-left">
             <van-icon class="service-o" name="service-o" />
-            <div>客服</div>
+            <div @click="kefu">客服</div>
         </div>
-        <div class="footer-center">
+        <div class="footer-center" @click="openShare">
             <img src="../../assets/images/Shape.png" alt="">
             <div>赚￥{{totalPrice}}</div>
         </div>
@@ -70,9 +70,9 @@
            <div class="footer">
                 <div class="footer-left">
                     <van-icon class="service-o" name="service-o" />
-                    <div>客服</div>
+                    <div @click="kefu">客服</div>
                 </div>
-                <div class="footer-center">
+                <div class="footer-center" @click="openShare">
                     <img src="../../assets/images/Shape.png" alt="">
                     <div>赚￥{{totalPrice}}</div>
                 </div>
@@ -80,6 +80,10 @@
             </div>
         </template>
         </van-sku>
+        <!-- 分享 -->
+        <div class='share' v-if="shareStatus" @click="closeShare">
+            <img src="../../assets/images/sha.png" alt="">
+        </div>
   </div>
 </template>
 
@@ -102,7 +106,8 @@ export default {
         sku: {},
         goods: {},
         messageConfig: {},
-        specification:''
+        specification:'',
+        shareStatus:false
     }
   },
   computed:{
@@ -111,6 +116,18 @@ export default {
     this.getDetail(this.$route.query.id)
   },
   methods: {
+    // 打开分享
+    openShare(){
+        this.shareStatus = true
+    },
+    //   关闭分享
+    closeShare(){
+        this.shareStatus = false
+    },
+    //   客服
+    kefu(){
+        window.location.href = 'https://xiaokefu.com.cn/s/11272kto0'
+    },
     // 选择规格
     skuSelected(e){
         console.log(e)
@@ -398,6 +415,21 @@ export default {
     }
     .sku{
         color: black !;
+    }
+    .share{
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: rgba(0, 0, 0, 0.3);
+        z-index: 1000000;
+        img{
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 550px;
+        }
     }
 }
 </style>

@@ -10,7 +10,10 @@ import '@/filters' // filters
 import '@/permission' // permission 权限
 // 解决移动端click事件300毫秒延迟方法
 import FastClick from 'fastclick'
-
+// 分享
+// import '@/utils/share'
+// 复制
+import VueClipboard from 'vue-clipboard2'
 // 引入需要的vant组件
 import {
   Toast,
@@ -33,7 +36,7 @@ import {
   Field
 } from 'vant'
 
-Vue.use(Toast).use(Button).use(NumberKeyboard).use(AddressList)
+Vue.use(VueClipboard).use(Toast).use(Button).use(NumberKeyboard).use(AddressList)
 .use(Tabbar).use(TabbarItem).use(Swipe).use(Stepper)
 .use(SwipeItem).use(List).use(Icon).use(Popup).use(Sku)
 .use(AddressEdit).use(Area).use(Tab).use(Tabs).use(Field)

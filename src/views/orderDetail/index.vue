@@ -45,7 +45,7 @@
             <div class="detail">
                 <div>订单编号</div>
                 <div>{{details.orderSn}}</div>
-                <div class="copy">复制</div>
+                <div class="copy" v-clipboard:copy="details.orderSn" v-clipboard:success="onCopy" v-clipboard:error="onError">复制</div>
             </div>
             <div class="detail">
                 <div>创建时间</div>
@@ -68,6 +68,7 @@
 </template>
 
 <script>
+import { Toast } from 'vant'
 import {orderDetail} from '@/api/order'
 export default {
   name: 'orderDetail',
@@ -108,6 +109,14 @@ export default {
     }
   },
   methods: {
+    // 复制成功时的回调函数
+    onCopy (e) {
+        Toast.success('复制成功')
+    },
+    // 复制失败时的回调函数
+    onError (e) {
+        Toast.fail('复制失败')
+    },
     // 支付
     pay(){
 
