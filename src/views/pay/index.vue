@@ -65,7 +65,8 @@ export default {
         message:'',
         details:{},
         address:{},
-        addressList:[]
+        addressList:[],
+        addressId:this.$store.state.app.addressId
     }
   },
   created(){
@@ -79,9 +80,9 @@ export default {
       totalPrice(){
           return (this.count*this.details.price).toFixed(2)
       },
-      addressId(){
-          return this.$store.state.app.addressId
-      }
+    //   addressId(){
+    //       return this.$store.state.app.addressId
+    //   }
   },
   watch:{
       addressId(e){
@@ -89,12 +90,16 @@ export default {
       }
   },
   methods: {
-    //   获取地理位置
+    //   获取收货地址
     getAddress(){
         list().then(res=>{
             console.log(res.data[0])
             this.addressList = res.data
-            this.address = this.addressList[0]
+            if(this.addressId){
+                this.address = this.addressList.find(item=>item.id == this.addressId)
+            }else{
+                this.address = this.addressList[0]
+            }
         })
     },
     // 获取页面数据
