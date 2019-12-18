@@ -11,7 +11,7 @@ import '@/permission' // permission 权限
 // 解决移动端click事件300毫秒延迟方法
 import FastClick from 'fastclick'
 // 分享
-// import '@/utils/share'
+import '@/utils/share'
 // 复制
 import VueClipboard from 'vue-clipboard2'
 // 引入需要的vant组件

@@ -1,6 +1,8 @@
 import request from '@/utils/request'
+import wx from 'weixin-js-sdk';
 
 export function pay(orderId) {
+  console.log(wx)
     return new Promise((resolved,rejected)=>{
     request({
         url:'/pay/wechat/jsApi',
@@ -9,7 +11,31 @@ export function pay(orderId) {
       }).then(res=>{
         console.log('调起微信支付信息',res.data)
         let {timeStamp,nonceStr,packageValue,paySign} = res.data
-        webPay(timeStamp,nonceStr,packageValue,paySign,resolved,rejected)
+
+        request({
+            url: '/createJsapiSignature',
+            data:{url:window.location.href},
+            method: 'POST'
+        },true).then(res => {
+            console.log('获取jssdk签名',res)
+            if(res.data.success){
+              wx.config(Object.assign(res.data.data,
+                {
+                  debug: true,
+                  jsApiList: [ "chooseWXPay","getLocation","updateAppMessageShareData","updateTimelineShareData" ]
+                }
+              ));
+              wx.ready(function(){
+                webPay(timeStamp,nonceStr,packageValue,paySign,resolved,rejected)
+              });
+            }else{
+              Taro.showToast({
+                title:'获取jssdk签名失败，请升级微信'
+              })
+            } 
+        })
+
+        // webPay(timeStamp,nonceStr,packageValue,paySign,resolved,rejected)
       })
     })
 }

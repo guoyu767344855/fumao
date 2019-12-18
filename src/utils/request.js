@@ -24,6 +24,8 @@ service.interceptors.request.use(
     }
     if(localStorage.getItem('token')){
       config.headers['Authorization'] = `Bearer ${localStorage.getItem('token')}`
+      config.headers['platformId'] = `${localStorage.getItem('platformId')}`
+      config.headers['parentId'] = `${localStorage.getItem('parentId')}`
     }
     return config
   },

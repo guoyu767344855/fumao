@@ -2,9 +2,9 @@
   <div class='my'>
     <div class="header">
       <div class="header-left">
-        <img class="header-img" src="../../assets/images/aa.jpg" alt="">
+        <img class="header-img" :src="userInfo.icon" alt="">
         <div class="header-user">
-          <div class="header-user-name">{{userInfo.username}}</div>
+          <div class="header-user-name">{{userInfo.nickname}}</div>
           <img class="header-user-dc" :src="userDec" alt="">
         </div>
       </div>
@@ -169,6 +169,7 @@ export default {
       height:120px;
       border-radius:4px;
       margin: 0 33px;
+      flex-shrink: 1;
     }
     &-user{
       &-name{
@@ -190,6 +191,7 @@ export default {
       text-align: left;
     }
     &-right{
+      flex-shrink: 1;
       display: flex;
       align-items: center;
       font-size:34px;

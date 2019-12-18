@@ -78,18 +78,33 @@ export default {
         value:1,
         id:null,
         remark:'',
-        details:{}
+        details:{},
+        paystatus:false
     }
   },
   created(){
-    console.log(this.$route.query.id)
+    console.log(this.$route.query)
     if(this.$route.query.id){
         this.id = this.$route.query.id
+    }
+    if(this.$route.query.pay){
+        this.paystatus = true
+    }else{
+        this.paystatus = false
     }
     orderDetail(this.id).then(res=>{
         console.log(res)
         this.details = res.data
     })
+  },
+  beforeDestroy(){
+      console.log('页面销毁前')
+      console.log(this.paystatus)
+      if(this.paystatus){
+        this.$router.replace({
+            path:'/'
+        })
+      }
   },
   filters:{
     statusFilter(e){

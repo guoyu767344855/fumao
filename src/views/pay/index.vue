@@ -54,6 +54,7 @@ import {getDetail} from '@/api/pay'
 import {list} from '@/api/address'
 import {createOrder} from '@/api/order'
 import {pay} from '@/utils/pay'
+import { Toast } from 'vant';
 export default {
   name: 'pay',
 
@@ -64,7 +65,9 @@ export default {
         remark:'',
         message:'',
         details:{},
-        address:{},
+        address:{
+            id:''
+        },
         addressList:[],
         addressId:this.$store.state.app.addressId
     }
@@ -95,10 +98,12 @@ export default {
         list().then(res=>{
             console.log(res.data[0])
             this.addressList = res.data
-            if(this.addressId){
-                this.address = this.addressList.find(item=>item.id == this.addressId)
-            }else{
-                this.address = this.addressList[0]
+            if(this.addressList.length != 0){
+                if(this.addressId){
+                    this.address = this.addressList.find(item=>item.id == this.addressId)
+                }else{
+                    this.address = this.addressList[0]
+                }
             }
         })
     },
@@ -117,17 +122,23 @@ export default {
             skuId:this.id,
             remark:this.remark
         }
+        if(!this.address.id){
+            Toast.error('请选择地址')
+        }
         createOrder(data).then(res=>{
             console.log(res)
             pay(res.data).then(res=>{
                 console.log(res)
+                this.$router.push({
+                    path:`/orderDetail?id=${this.id}&pay=true`
+                })
             })
         })
     },
     // 去地理位置
     toLocation(){
         this.$router.push({
-            path:"/address?id=" + this.address.id
+            path:"/address?id=" + this.address.id || ''
         })
     }
   }
