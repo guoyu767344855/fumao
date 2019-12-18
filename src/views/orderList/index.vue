@@ -47,6 +47,7 @@ export default {
         loading: false,
         finished: false,
         statusList:[
+          {status:'',title:'全部订单'},
           {status:0,title:'待付款'},
           {status:1,title:'待发货'},
           {status:2,title:'已发货'},
@@ -80,10 +81,18 @@ export default {
       }
     }
   },
+  created(){
+    if(this.$route.query.status){
+      console.log('状态',this.$route.query.status)
+      this.pageQyery.status = this.$route.query.status
+      this.active = this.$route.query.status ? Number(this.$route.query.status)+1 : 0
+      console.log('active',this.active)
+    }
+  },
   methods: {
     // 选择订单状态
     chooseStatus(e){
-      console.log(e)
+      // console.log(e)
       this.list = []
       this.finished = false
       this.pageQyery = {
@@ -91,7 +100,7 @@ export default {
           pageSize: 10,
           sortDirection: "string",
           sortField: "string",
-          status:e
+          status:e == 0 ? '' : e-1
       }
       this.onLoad()
     },

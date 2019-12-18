@@ -34,13 +34,13 @@
     <div class="line"></div>
     <div class="myOrder">
       <div class="myOrder-left">我的订单</div>
-      <div class="myOrder-right" @click="toMyorder">
+      <div class="myOrder-right" @click="toMyorder('')">
         <span>全部订单</span>
         <van-icon name="arrow" />
       </div>
     </div>
     <div class="shouyi">
-      <div class="shouyi-item" v-for="(item, index) in orderList" :key="index">
+      <div class="shouyi-item" v-for="(item, index) in orderList" :key="index" @click="toMyorder(item.status)">
         <img class="shouyi-item-img" :src="item.pic" alt="">
         <div class="shouyi-item-txt">{{item.name}}</div>
       </div>
@@ -71,19 +71,23 @@ export default {
       orderList:[
         {
           name:'待付款',
-          pic:require('../../assets/images/pay.png')
+          pic:require('../../assets/images/pay.png'),
+          status:0
         },
         {
           name:'待发货',
-          pic:require('../../assets/images/fahuo.png')
+          pic:require('../../assets/images/fahuo.png'),
+          status:1
         },
         {
           name:'待收货',
-          pic:require('../../assets/images/shou.png')
+          pic:require('../../assets/images/shou.png'),
+          status:2
         },
         {
           name:'全部订单',
-          pic:require('../../assets/images/order.png')
+          pic:require('../../assets/images/order.png'),
+          status:''
         },
       ],
       moreList:[
@@ -129,9 +133,9 @@ export default {
         })
     },
     // 去我的订单
-    toMyorder(){
+    toMyorder(e){
       this.$router.push({
-            path:"/orderList"
+            path:"/orderList?status=" + e
         })
     }
   }
@@ -181,7 +185,6 @@ export default {
       line-height:48px;
       background-color: #D8D8D8;
       padding: 2px 10px;
-      border:1px solid #979797;
       border-top-left-radius: 50px;
       border-bottom-left-radius: 50px;
     }
