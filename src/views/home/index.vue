@@ -70,7 +70,7 @@ export default {
         {
           pic:require('../../assets/images/huangjing.png'),
           name:'黄精文化',
-          route:'/member'
+          route:'/'
         },
         {
           pic:require('../../assets/images/chanpin.png'),
