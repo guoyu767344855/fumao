@@ -112,7 +112,7 @@ export default {
     // 支付
     pay(){
         let data = {
-            addressId:this.addressList[0].id,
+            addressId:this.address.id,
             qty:this.count,
             skuId:this.id,
             remark:this.remark
