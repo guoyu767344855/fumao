@@ -209,7 +209,7 @@ export default {
         line-height:37px;
       }
       &-img{
-        width:70px;
+        // width:70px;
         height:70px;
         margin-bottom: 23px;
       }
