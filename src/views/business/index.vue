@@ -12,7 +12,7 @@
             <div class="list-item-left-top">{{item.title}}</div>
             <div>{{item.people}}</div>
           </div>
-          <img class="list-item-right" src="" alt="">
+          <img class="list-item-right" :src="item.pic" alt="">
         </div>
         </van-list>
   </div>
@@ -28,37 +28,37 @@ export default {
         {
           title:'科学普及-宫颈机能不全CIC与STIS感染',
           people:'113人已读',
-          pic:'',
+          pic: require('../../assets/images/1.png'),
           url:'https://mp.weixin.qq.com/s/jjfI7vuxhncw74qN7BYBpw'
         },
         {
           title:'从主动tiao逗到享受愉悦这才是女人该做的。',
           people:'286人已读',
-          pic:'',
+          pic:require('../../assets/images/2.png'),
           url:'https://mp.weixin.qq.com/s/lHtxjcjHEkzbWcsmRDkw2Q'
         },
         {
           title:'有办法让男人对你一直保持热情？',
           people:'445人已读',
-          pic:'',
+          pic:require('../../assets/images/3.png'),
           url:'https://mp.weixin.qq.com/s/mp3p3MOW8rs-j_XGexH0sA'
         },
         {
           title:'爱情是最让人患得患失的东西',
           people:'334人已读',
-          pic:'',
+          pic:require('../../assets/images/0.png'),
           url:'https://mp.weixin.qq.com/s/IaH46UExvO9lj2KPEP_FvA'
         },
         {
           title:'我们总是在危机面前，才慢慢学会成长',
           people:'299人已读',
-          pic:'',
+          pic:require('../../assets/images/2.png'),
           url:'https://mp.weixin.qq.com/s/cyupnxZOM77AoQYuKW-zRQ'
         },
         {
           title:'私密健康全系解读！',
           people:'135人已读',
-          pic:'',
+          pic:require('../../assets/images/1.png'),
           url:'https://mp.weixin.qq.com/s/AUidFSOhL_OliRe29j1PIQ'
         }
       ],
