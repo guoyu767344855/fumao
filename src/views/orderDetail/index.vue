@@ -60,9 +60,10 @@
             <div>客服</div>
         </div>
         <div class="footer-center">
-            <div>取消订单</div>
+            <div class="footer-cancle">取消订单</div>
+            <div class="footer-right" @click="pay">付款</div>
         </div>
-        <div class="footer-right">付款</div>
+        
     </div>
   </div>
 </template>
@@ -70,6 +71,7 @@
 <script>
 import { Toast } from 'vant'
 import {orderDetail} from '@/api/order'
+import {pay} from '@/utils/pay'
 export default {
   name: 'orderDetail',
 
@@ -124,6 +126,16 @@ export default {
     }
   },
   methods: {
+      // 支付
+    pay(){
+        pay(this.details.id).then(res=>{
+            console.log(res)
+            orderDetail(this.id).then(res=>{
+                console.log(res)
+                this.details = res.data
+            })
+        })
+    },
     // 复制成功时的回调函数
     onCopy (e) {
         Toast.success('复制成功')
@@ -154,8 +166,8 @@ export default {
         z-index: 10000;
         background-color: #ffffff;
         text-align: center;
+        justify-content: space-between;
         &-left{
-            flex: 1;
             font-size:20px;
             font-family:PingFangSC-Regular,PingFang SC;
             font-weight:400;
@@ -165,40 +177,36 @@ export default {
             display: flex;
             flex-direction: column;
             justify-content: center;
+            margin-left: 17px;
             .service-o{
                 font-size: 40px;
             }
         }
         &-center{
-            flex: 2;
             display: flex;
             align-items: center;
-            justify-content: center;
-            font-size:28px;
-            font-family:PingFangSC-Regular,PingFang SC;
-            font-weight:400;
-            color:rgba(246,66,66,1);
-            line-height:40px;
-            border-radius:4px 0px 0px 4px;
-            border:1PX solid rgba(247,80,80,1);
-            height: 100%;
-            img{
-                width: 36px;
-                height: 30px;
-                margin-top: -5px;
-            }
         }
         &-right{
-            flex: 2;
-            height: 100%;
-            background-image: url('../../assets/images/Combined.png');
-            background-size: 100%;
-            font-size:28px;
+            border-radius:10px;
+            border:1PX solid rgba(255,103,2,1);
+            font-size:30px;
             font-family:PingFangSC-Regular,PingFang SC;
             font-weight:400;
-            color:rgba(255,255,255,1);
-            line-height:40px;
-            line-height: 80px;
+            color:rgba(255,103,2,1);
+            line-height:42px;
+            padding: 5px 40px;
+            margin-right: 28px;
+        }
+        &-cancle{
+            border-radius:10px;
+            border:1PX solid rgba(151,151,151,1);
+            font-size:30px;
+            font-family:PingFangSC-Regular,PingFang SC;
+            font-weight:400;
+            color:rgba(151,151,151,1);
+            line-height:42px;
+            margin-right: 47px;
+            padding: 5px 10px;
         }
     }
     .header{
@@ -214,7 +222,7 @@ export default {
         display: flex;
         align-items: center;
         border-radius:10px;
-        border:1PX solid rgba(151,151,151,1);
+        border:1PX solid #979797;
         margin: 18px 16px;
         padding: 20px;
         &-lef{

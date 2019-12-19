@@ -6,6 +6,10 @@ router.beforeEach(async(to, from, next) => {
 })
 router.afterEach(() => {})
 
+// login().then(res=>{
+//   console.log(res)
+//   localStorage.setItem('token',res.data.token)
+// })
 
 if(window.location.href.indexOf("token=")>-1){
   localStorage.setItem('token',window.location.href.split("token=")[1].split("&")[0])

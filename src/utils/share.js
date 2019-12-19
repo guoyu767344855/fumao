@@ -13,7 +13,7 @@ import wx from 'weixin-js-sdk';
           if(res.code == 200){
             config = Object.assign(res.data,
               {
-                debug: true,
+                debug: false,
                 jsApiList: [ "chooseWXPay","getLocation","updateAppMessageShareData","updateTimelineShareData" ]
               }
             )

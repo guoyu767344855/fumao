@@ -124,6 +124,7 @@ export default {
         }
         if(!this.address.id){
             Toast.error('请选择地址')
+            return
         }
         createOrder(data).then(res=>{
             console.log(res)
