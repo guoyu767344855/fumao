@@ -63,7 +63,7 @@ export default {
         }
       ],
       loading: false,
-      finished: false,
+      finished: true,
     }
   },
 
@@ -105,6 +105,7 @@ export default {
 
 <style lang='less' scoped>
 .business{
+  padding-bottom: 50PX;
   .list{
     &-item{
       display: flex;

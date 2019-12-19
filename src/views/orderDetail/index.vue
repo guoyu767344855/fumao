@@ -58,7 +58,7 @@
         </div>
     </div>
     <div class="lin"></div>
-    <div class="footer" v-if="details.status == 0 ? true : false">
+    <div class="footer">
         <div class="footer-left">
             <van-icon class="service-o" name="service-o" />
             <div @click="kefu">客服</div>
