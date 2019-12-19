@@ -10,8 +10,8 @@ import wx from 'weixin-js-sdk';
       },true).then(res => {
           console.log('获取jssdk签名',res)
           let config = {}
-          if(res.data.success){
-            config = Object.assign(res.data.data,
+          if(res.code == 200){
+            config = Object.assign(res.data,
               {
                 debug: true,
                 jsApiList: [ "chooseWXPay","getLocation","updateAppMessageShareData","updateTimelineShareData" ]
@@ -22,9 +22,7 @@ import wx from 'weixin-js-sdk';
               shareConfig();
             });
           }else{
-            Taro.showToast({
-              title:'获取jssdk签名失败，请升级微信'
-            })
+            console.log('获取jssdk签名失败，请升级微信')
           } 
       })
 }
