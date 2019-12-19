@@ -128,10 +128,10 @@ export default {
         }
         createOrder(data).then(res=>{
             console.log(res)
-            pay(res.data).then(res=>{
-                console.log(res)
+            pay(res.data).then(resq=>{
+                console.log(resq)
                 this.$router.push({
-                    path:`/orderDetail?id=${this.id}&pay=true`
+                    path:`/orderDetail?id=${res.data}&pay=true`
                 })
             })
         })

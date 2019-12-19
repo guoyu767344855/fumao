@@ -13,7 +13,7 @@
         <van-icon class="location-rig" name="arrow" />
     </div>
     <div class="goods">
-        <img class="goods-img" src="../../assets/images/aa.jpg" alt="">
+        <img class="goods-img" :src="details.productPic" alt="">
         <div class="goods-rig">
             <div class="goods-rig-one">{{details.productName}}</div>
             <div class="goods-rig-two">规格：默认</div>
@@ -51,19 +51,28 @@
                 <div>创建时间</div>
                 <div>{{details.createTime}}</div>
             </div>
+            <div class="detail" v-if="details.status == 3">
+                <div>物流单号</div>
+                <div>{{details.deliverySn || ''}}</div>
+            </div>
         </div>
     </div>
     <div class="lin"></div>
     <div class="footer" v-if="details.status == 0 ? true : false">
         <div class="footer-left">
             <van-icon class="service-o" name="service-o" />
-            <div>客服</div>
+            <div @click="kefu">客服</div>
         </div>
-        <div class="footer-center">
+        <div v-if="details.status == 0" class="footer-center">
             <div class="footer-cancle">取消订单</div>
             <div class="footer-right" @click="pay">付款</div>
         </div>
-        
+        <div v-if="details.status == 1" class="footer-center">
+            <div class="footer-cancle">提醒发货</div>
+        </div>
+        <div v-if="details.status == 2" class="footer-center">
+            <div class="footer-right">确认收货</div>
+        </div>
     </div>
   </div>
 </template>
@@ -126,6 +135,10 @@ export default {
     }
   },
   methods: {
+      //   客服
+    kefu(){
+        window.location.href = 'https://xiaokefu.com.cn/s/11272kto0'
+    },
       // 支付
     pay(){
         pay(this.details.id).then(res=>{
