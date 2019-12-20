@@ -110,6 +110,22 @@ export const constantRoutes = [
       keepAlive: false
     },
     component: () => import('@/views/product/index')
+  },
+  {
+    path: '/estimate',
+    meta:{
+      title: '收益',
+      keepAlive: false
+    },
+    component: () => import('@/views/estimate/index')
+  },
+  {
+    path: '/explain',
+    meta:{
+      title: '结算说明',
+      keepAlive: false
+    },
+    component: () => import('@/views/explain/index')
   }
 ]
 

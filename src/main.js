@@ -33,11 +33,12 @@ import {
   Tab, 
   Tabs,
   Sku,
-  Field
+  Field,
+  ActionSheet
 } from 'vant'
 
 Vue.use(VueClipboard).use(Toast).use(Button).use(NumberKeyboard).use(AddressList)
-.use(Tabbar).use(TabbarItem).use(Swipe).use(Stepper)
+.use(Tabbar).use(TabbarItem).use(Swipe).use(Stepper).use(ActionSheet)
 .use(SwipeItem).use(List).use(Icon).use(Popup).use(Sku)
 .use(AddressEdit).use(Area).use(Tab).use(Tabs).use(Field)
 
