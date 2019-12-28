@@ -5,19 +5,27 @@
     </van-swipe>
     <div class="topName">
         <div class="topName-left">
-            <div class="topName-left-name">{{details.name}}</div>
-            <div class="topName-left-num">¥{{details.price}}</div>
-            <div class="topName-left-count">
+                <div class="topName-left-name">{{details.name}}</div>
+                <div class="topName-right" @click="openShare">
+                    <img class="topName-right-img" src="../../assets/images/share.png" alt="">
+                    <div>分享</div>
+                </div>
+        </div>
+        <div class="topName-bot">
+            <div class="topName-bot-num">
+                <span>¥{{details.price}}</span>
+                <span class="del">¥{{details.price}}</span>
+            </div>
+            <div class="topName-bot-count">
                 <span>库存：{{details.stock}}</span>
                 <span>销量：{{details.sale}}</span>
             </div>
         </div>
-        <div class="topName-right" @click="openShare">
-            <img class="topName-right-img" src="../../assets/images/share.png" alt="">
-            <div>分享</div>
-        </div>
     </div>
-    <div class="line"></div>
+    <div class="shouhou">
+        <img src="../../assets/images/shouhou.png" alt="">
+    </div>
+    <!-- <div class="line"></div>
     <div class="middle">
         <div class="middle-left">规格</div>
         <div class="middle-right" @click="showPopup">
@@ -31,7 +39,7 @@
             <span>正品保证  ｜  售后无忧</span>
         </div>
     </div>
-    <div class="line"></div>
+    <div class="line"></div> -->
     <div class="bottom">
         <div class="bottom-title">商品详情</div>
         <div class="detailHtml" v-html="details.detailHtml"></div>
@@ -204,17 +212,16 @@ export default {
         height: 80px;
         display: flex;
         align-items: center;
-        border:1px solid rgba(133,133,133,1);
         z-index: 10000;
         background-color: #ffffff;
         text-align: center;
         &-left{
             flex: 1;
-            font-size:20px;
-            font-family:PingFangSC-Regular,PingFang SC;
-            font-weight:400;
-            color:rgba(0,0,0,1);
-            line-height:28px;
+            font-size:24px;
+            font-family:HYQiHei-DES,HYQiHei;
+            font-weight:normal;
+            color:rgba(51,51,51,1);
+            line-height:30px;
             height: 100%;
             display: flex;
             flex-direction: column;
@@ -228,31 +235,28 @@ export default {
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size:28px;
-            font-family:PingFangSC-Regular,PingFang SC;
-            font-weight:400;
-            color:rgba(246,66,66,1);
-            line-height:40px;
-            border-radius:4px 0px 0px 4px;
-            border:1PX solid rgba(247,80,80,1);
+           font-size:28px;
+            font-family:HYQiHei-FES,HYQiHei;
+            font-weight:normal;
+            color:rgba(51,51,51,1);
+            line-height:34px;
+            background:rgba(254,232,88,1);
             height: 100%;
             img{
                 width: 36px;
-                height: 30px;
+                height: 36px;
                 margin-top: -5px;
             }
         }
         &-right{
             flex: 2;
             height: 100%;
-            background-image: url('../../assets/images/Combined.png');
-            background-size: 100%;
+            background:rgba(255,62,83,1);
             font-size:28px;
-            font-family:PingFangSC-Regular,PingFang SC;
-            font-weight:400;
+            font-family:HYQiHei-FES,HYQiHei;
+            font-weight:normal;
             color:rgba(255,255,255,1);
-            line-height:40px;
-            line-height: 80px;
+            line-height:80px;
         }
     }
     .popup{
@@ -329,23 +333,42 @@ export default {
         }
     }
     .topImg{
-        width:100%;
-        height:762px;
+        width:750px;
+        height:750px;
     }
     .topName{
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
         padding: 15px 25px;
         &-left{
             text-align: left;
+            display: flex;
+            justify-content: space-between;
             &-name{
-               font-size:36px;
-                font-family:PingFangSC-Regular,PingFang SC;
-                font-weight:400;
-                color:rgba(51,51,51,1);
-                line-height:50px; 
+                width:600px;
+                font-size:32px;
+                font-family:HYQiHei-FES,HYQiHei;
+                font-weight:normal;
+                color:rgba(0,0,0,1);
+                line-height:40px;
             }
+        }
+        &-right{
+            font-size:16px;
+            font-family:PingFangSC-Regular,PingFang SC;
+            font-weight:400;
+            color:rgba(255,62,83,1);
+            line-height:22px;
+            border-left: 1PX dotted #D8D8D8;
+            padding-left: 20px;
+            &-img{
+                width:38px;
+                height:38px;
+                margin-bottom: 10px;
+            }
+        }
+        &-bot{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             &-num{
                 font-size:36px;
                 font-family:PingFangSC-Regular,PingFang SC;
@@ -353,26 +376,32 @@ export default {
                 color:rgba(247,0,0,1);
                 line-height:50px;
                 margin: 10px 0; 
+                .del{
+                    font-size:28px;
+                    font-family:HYQiHei-DES,HYQiHei;
+                    font-weight:normal;
+                    color:rgba(153,153,153,1);
+                    line-height:34px;
+                    text-decoration:line-through;
+                }
             }
             &-count{
                 font-size:24px;
                 font-family:PingFangSC-Regular,PingFang SC;
                 font-weight:400;
-                color:rgba(0,0,0,1);
-                line-height:28px;
+                color:rgba(153,153,153,1);
+                line-height:34px;
             }
         }
-        &-right{
-            font-size:20px;
-            font-family:PingFangSC-Regular,PingFang SC;
-            font-weight:400;
-            color:rgba(0,0,0,1);
-            line-height:28px;
-            &-img{
-                width:38px;
-                height:38px;
-                margin-bottom: 10px;
-            }
+    }
+    .shouhou{
+        width:750px;
+        height:80px;
+        background:rgba(248,248,248,1);
+        img{
+          width: 656px;
+          height: 32px; 
+          margin: 24px 32px;
         }
     }
     .line{
@@ -404,13 +433,13 @@ export default {
     .bottom{
         width: 750px;
         &-title{
-            font-size:36px;
-            font-family:PingFangSC-Regular,PingFang SC;
-            font-weight:400;
+            font-size:28px;
+            font-family:HYQiHei-GEW,HYQiHei;
+            font-weight:normal;
             color:rgba(0,0,0,1);
-            line-height:50px;
-            text-align: left;
-            margin: 25px;
+            line-height:34px;
+            text-align: center;
+            margin: 20px;
         }
     }
     .sku{

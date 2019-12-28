@@ -15,7 +15,9 @@
       </div>
     </div>
     <div class="line">
-      为你推荐
+      <img class="line-left" src="../../assets/images/lineLeft.png" alt="">
+      <div>为你推荐</div>
+      <img class="line-right" src="../../assets/images/lineRight.png" alt="">
     </div>
     <van-list
       v-model="loading"
@@ -25,7 +27,10 @@
       class="list"
     >
       <div class="list-item" v-for="(item, index) in list" :key="index" @click="toDetail(item)">
-        <img class="list-img" :src="item.pic" alt="">
+        <div class="img-box">
+          <img class="list-img" :src="item.pic" alt="">
+          <span class="img-text">优质推荐</span>
+        </div>
         <div class="list-content">
           <div class="list-content-one">
             {{item.name}}
@@ -33,12 +38,9 @@
           <div class="list-content-two">
             {{item.subTitle}}
           </div>
-          <div class="list-content-three">
-            <span class="youzhi">优选推荐</span>
-            <span>月销{{item.sale}}{{item.unit}}</span>
-          </div>
           <div class="list-content-four">
-            ¥{{item.price}}
+            <span>¥{{item.price}}</span>
+            <span class="four-right">月销{{item.sale}}{{item.unit}}</span>
           </div>
         </div>
       </div>
@@ -147,10 +149,7 @@ export default {
   .swiper{
     width:750px;
     height:291px;
-    margin: 20px auto;
-    &-item{
-      padding: 0 30px;
-    }
+    margin-bottom: 32px;
     &-img{
       width: 100%;
       height: 100%;
@@ -163,9 +162,14 @@ export default {
     align-items: center;
     justify-content: space-around;
     padding: 0 33px;
+    font-size:24px;
+    font-family:HYQiHei-DES,HYQiHei;
+    font-weight:normal;
+    color:rgba(51,51,51,1);
+    line-height:30px;
     &-img{
-      width:94px;
-      height:94px;
+      width:120px;
+      height:120px;
       border-radius:40px;
       opacity:0.79;
     }
@@ -175,70 +179,88 @@ export default {
     }
   }
   .line{
-    font-size:36px;
+    font-size:32px;
     font-family:PingFangSC-Semibold,PingFang SC;
     font-weight:600;
     color:rgba(51,51,51,1);
-    line-height:50px;
-    text-align: left;
-    padding: 33px 33px 0 33px;
+    line-height:44px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 30px 0 0 0;
+    div{
+      margin: 0 10px;
+    }
+    &-left{
+      width: 80px;
+      height: 20px;
+    }
+    &-right{
+      width: 80px;
+      height: 20px;
+    }
   }
   .list{
     padding: 0 33px;
+    .img-box{
+      position: relative;
+      .img-text{
+        position: absolute;
+        left: 20px;
+        bottom: 20px;
+        background:linear-gradient(270deg,rgba(255,188,147,1) 0%,rgba(247,139,121,1) 100%);
+        border-radius:20px;
+        padding: 6px 12px 4px 12px;
+        font-size:24px;
+        font-family:HYQiHei-EES,HYQiHei;
+        font-weight:normal;
+        color:rgba(255,255,255,1);
+        line-height:30px;
+      }
+    }
     &-item{
-      display: flex;
-      padding: 30px 0;
+      padding: 20px 0 30px 0;
       border-bottom: 2px solid #EEEEEE;
     }
     &-img{
-      width:200px;
-      height:200px;
-      flex-shrink: 0;
-      background:rgba(241,248,255,1);
-      border-radius:2px;
+      width:686px;
+      height:400px;
+      background:rgba(255,255,255,1);
+      border-radius:20px;
     }
     &-content{
       text-align: left;
-      padding-left: 32px;
       &-one{
-        font-size:34px;
-        font-family:PingFangSC-Medium,PingFang SC;
+        font-size:38px;
+        font-family:PingFangSC-Semibold,PingFang SC;
         font-weight:600;
-        color:rgba(51,51,51,1);
-        line-height:48px;
+        color:rgba(25,25,25,1);
+        line-height:52px;
+        margin-top: 10px;
       }
       &-two{
         font-size:24px;
         font-family:PingFangSC-Regular,PingFang SC;
         font-weight:400;
         color:rgba(153,153,153,1);
-        line-height:33px;
+        line-height:34px;
         margin: 10px 0;
       }
-      &-three{
-        font-size:24px;
-        font-family:PingFangSC-Regular,PingFang SC;
-        font-weight:400;
-        color:rgba(153,153,153,1);
-        line-height:33px;
-        margin: 20px 0;
-        .youzhi{
+      &-four{
+        font-size:36px;
+        font-family:PingFangSC-Semibold,PingFang SC;
+        font-weight:600;
+        color:rgba(255,56,78,1);
+        line-height:50px;
+        display: flex;
+        justify-content: space-between;
+        .four-right{
           font-size:24px;
           font-family:PingFangSC-Regular,PingFang SC;
           font-weight:400;
-          color:rgba(232,84,30,1);
-          line-height:33px;
-          background:rgba(233,90,39,.1);
-          border-radius:2px;
-          padding: 3px 8px;
+          color:rgba(153,153,153,1);
+          line-height:34px;
         }
-      }
-      &-four{
-        font-size:40px;
-        font-family:PingFangSC-Medium,PingFang SC;
-        font-weight:600;
-        color:rgba(255,59,48,1);
-        line-height:56px;
       }
     }
   }

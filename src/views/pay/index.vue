@@ -1,6 +1,6 @@
 <template>
   <div class='pay'>
-    <div class="location" @click="toLocation">
+    <div :class="addressList.length != 0 ? 'location ':'location loca'" @click="toLocation">
         <van-icon class="location-lef" name="location" />
         <div v-if="addressList.length != 0" class="location-mid">
             <div>
@@ -14,14 +14,18 @@
         </div>
         <van-icon class="location-rig" name="arrow" />
     </div>
-    <div class="goods">
-        <img class="goods-img" :src="details.pic" alt="">
-        <div class="goods-rig">
-            <div class="goods-rig-one">{{details.productName}}</div>
-            <div class="goods-rig-two">规格：
-                <span>{{details.attr}}</span>
+    <div>
+        <div class="goods">
+            <img class="goods-img" :src="details.pic" alt="">
+            <div class="goods-rig">
+                <div style="display:flex;justify-content: space-between;margin-bottom:15px;">
+                    <div class="goods-rig-one">{{details.productName}}</div>
+                    <div class="goods-rig-thr">¥{{details.price}}</div>
+                </div>
+                <div class="goods-rig-two">
+                    <span>{{details.attr}}白色</span>
+                </div>
             </div>
-            <div class="goods-rig-thr">¥{{details.price}}</div>
         </div>
     </div>
     <div class="line">
@@ -37,12 +41,27 @@
         <div class="line-txt">包邮免运费</div>
     </div>
     <div class="line">
-        <div class="line-left">备注</div>
-        <input class="line-txt" maxlength="20" placeholder="选填" v-model="remark"/>
+        <textarea class="line-remark" maxlength="20" placeholder="备注(选填)" v-model="remark"/>
+    </div>
+    <div class="payText">
+        支付方式
+    </div>
+    <div class="payCheck">
+        <div style="display: flex;align-items: center;">
+            <img class="wechatpay" src="../../assets/images/wechatpay.png" alt="">
+            <div>微信支付</div>
+        </div>
+        <img class="checket" src="../../assets/images/checket.png" alt="">
+    </div>
+    <div class="payText">
+        提交订单则表示您同意《服务协议》
     </div>
     <div class="footer">
         <div class="footer-center">
-            <div>总计: ￥{{totalPrice}}</div>
+            <div>
+                共{{count}}件商品 需付款:
+                <span style="color:#FF5E45">￥{{totalPrice}}</span>
+            </div>
         </div>
         <div class="footer-right" @click="pay">立刻购买</div>
     </div>
@@ -156,7 +175,7 @@ export default {
         height: 80px;
         display: flex;
         align-items: center;
-        border:1px solid rgba(133,133,133,1);
+        border:2px solid rgba(216,216,216,1);
         z-index: 10000;
         background-color: #ffffff;
         text-align: center;
@@ -165,10 +184,10 @@ export default {
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size:28px;
-            font-family:PingFangSC-Regular,PingFang SC;
-            font-weight:400;
-            color:rgba(246,66,66,1);
+            font-size:24px;
+            font-family:HYQiHei-DES,HYQiHei;
+            font-weight:normal;
+            color:rgba(51,51,51,1);
             line-height:40px;
             height: 100%;
             img{
@@ -179,24 +198,19 @@ export default {
         }
         &-right{
             width: 280px;
-            height: 100%;
-            background-image: url('../../assets/images/Combined.png');
-            background-size: 100%;
+            background:rgba(255,62,83,1);
             font-size:28px;
-            font-family:PingFangSC-Regular,PingFang SC;
-            font-weight:400;
+            font-family:HYQiHei-FES,HYQiHei;
+            font-weight:normal;
             color:rgba(255,255,255,1);
-            line-height:40px;
-            line-height: 80px;
+            line-height:80px;
         }
     }
     .location{
         display: flex;
         align-items: center;
-        border-radius:10px;
-        border:1PX solid rgba(151,151,151,1);
-        margin: 18px 16px;
-        padding: 20px;
+        height: 128px;
+        color: #1A1A1A;
         &-lef{
             padding: 38px;
             font-size: 40px; 
@@ -208,56 +222,69 @@ export default {
             font-size:30px;
             font-family:PingFangSC-Regular,PingFang SC;
             font-weight:400;
-            color:rgba(112,109,109,1);
             line-height:42px;
-            &-name{
-                font-size:36px;
-                font-family:PingFangSC-Regular,PingFang SC;
-                font-weight:400;
-                color:rgba(51,51,51,1);
-                line-height:50px; 
-                margin-right: 18px;
-            }
+            // &-name{
+            //     font-size:36px;
+            //     font-family:PingFangSC-Regular,PingFang SC;
+            //     font-weight:400;
+            //     line-height:50px; 
+            //     margin-right: 18px;
+            // }
         }
         &-rig{
             padding: 5px;
             font-size: 40px; 
-            color:rgba(112,109,109,1);
         }
+    }
+    .loca{
+        background:linear-gradient(90deg,rgba(255,111,126,1) 0%,rgba(247,45,65,1) 100%);
+        color:rgba(255,255,255,1);
     }
     .goods{
         display: flex;
         align-items: center;
-        margin: 40px 40px 20px 40px;
-        padding: 10px;
+        padding: 20px 40px 20px 40px;
+        border-bottom: 20px solid #F2F2F2;
+        border-top: 20px solid #F2F2F2;
         &-img{
-            width:177px;
+            width:180px;
             height:180px;
-            margin-right: 30px;
+            border-radius:10px;
         }
         &-rig{
             text-align: left;
+            height:180px;
+            width: 100%;
+            background-color: #F2F2F2;
+            border-radius:10px;
+            padding: 20px;
             &-one{
-                font-size:36px;
-                font-family:PingFangSC-Regular,PingFang SC;
-                font-weight:400;
-                color:rgba(51,51,51,1);
-                line-height:50px;
+                width:320px;
+                font-size:28px;
+                font-family:HYQiHei-EES,HYQiHei;
+                font-weight:normal;
+                color:rgba(34,34,34,1);
+                line-height:32px;
             }
             &-two{
-                font-size:30px;
-                font-family:PingFangSC-Regular,PingFang SC;
-                font-weight:400;
-                color:rgba(112,109,109,1);
-                line-height:42px;
-                margin: 10px 0;
+                span{
+                    font-size:24px;
+                    font-family:HYQiHei-DES,HYQiHei;
+                    font-weight:normal;
+                    color:rgba(51,51,51,1);
+                    line-height:30px;
+                    border-radius:10px;
+                    border:1PX solid rgba(66,66,63,0.3);
+                    margin-right: 10px;
+                    padding: 6px 16px;
+                }
             }
             &-thr{
-                font-size:36px;
-                font-family:PingFangSC-Regular,PingFang SC;
-                font-weight:400;
-                color:rgba(247,0,0,1);
-                line-height:50px;
+                font-size:28px;
+                font-family:HYQiHei-FES,HYQiHei;
+                font-weight:600;
+                color:rgba(51,51,51,1);
+                line-height:34px;
             }
         }
     }
@@ -265,23 +292,21 @@ export default {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        border-bottom: 1px solid #EEEEEE;
-        padding: 25px 10px;
+        padding: 10px 10px;
         margin: 0 40px;
         &-left{
             font-size:34px;
             font-family:PingFangSC-Regular,PingFang SC;
             font-weight:400;
-            color:rgba(0,0,0,1);
+            color:#333333;
             line-height:48px;
             flex-shrink: 0;
         }
         &-num{
-            font-size:34px;
-            font-family:PingFangSC-Regular,PingFang SC;
-            font-weight:400;
-            color:rgba(255,0,0,1);
-            line-height:48px;
+            font-size:28px;
+            font-family:LucidaGrande;
+            color:rgba(51,51,51,1);
+            line-height:34px;
         }
         &-txt{
             font-size:34px;
@@ -291,6 +316,49 @@ export default {
             line-height:48px;
             text-align: right;
             border: none;
+        }
+        &-remark{
+            width:690px;
+            height:160px;
+            background:rgba(242,242,242,1);
+            border-radius:10px;
+            font-size:34px;
+            font-family:HYQiHei-DES,HYQiHei;
+            font-weight:normal;
+            color:rgba(153,153,153,1);
+            line-height:34px;
+            padding: 20px;
+            border: none;
+            margin-bottom: 20px;
+        }
+    }
+    .payText{
+        background-color: #F2F2F2;
+        line-height: 70px;
+        padding-left: 40px;
+        font-size:24px;
+        font-family:HYQiHei-FZS,HYQiHei;
+        font-weight:normal;
+        color:rgba(153,153,153,1);
+    }
+    .payCheck{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size:28px;
+        font-family:HYQiHei-FZS,HYQiHei;
+        font-weight:normal;
+        color:rgba(51,51,51,1);
+        line-height:34px;
+        padding: 40px;
+        .wechatpay{
+            width: 60px;
+            height: 56px;
+            margin-right: 20px;
+        }
+        .checket{
+            width:40px;
+            height:40px;
         }
     }
 }

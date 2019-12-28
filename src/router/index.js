@@ -126,6 +126,14 @@ export const constantRoutes = [
       keepAlive: false
     },
     component: () => import('@/views/explain/index')
+  },
+  {
+    path: '/fans',
+    meta:{
+      title: '粉丝',
+      keepAlive: false
+    },
+    component: () => import('@/views/fans/index')
   }
 ]
 

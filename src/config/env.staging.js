@@ -1,7 +1,7 @@
 module.exports = {
   title: 'vue-h5-template',
   api: {
-    base_api: 'https://127.0.0.1:8085',
-    common_api: 'https://127.0.0.1:8085'
+    base_api: 'http://api-test.hangim.com/api',
+    common_api: 'http://api-test.hangim.com/api'
   }
 }

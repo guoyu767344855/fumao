@@ -14,19 +14,19 @@
       </div>
     </div>
     <div class="shouyi">
-      <div class="shouyi-item">
+      <div class="shouyi-item" @click="toEst">
         <div class="shouyi-item-num">{{memberInfo.predictOfToday}}</div>
         <div class="shouyi-item-txt">今日收益</div>
       </div>
-      <div class="shouyi-item">
+      <div class="shouyi-item" @click="toEst">
         <div class="shouyi-item-num">{{memberInfo.predictOfThisMonth}}</div>
         <div class="shouyi-item-txt">本月收益</div>
-      </div>
-      <div class="shouyi-item">
+      </div> 
+      <div class="shouyi-item" @click="toEst">
         <div class="shouyi-item-num">{{memberInfo.predictOfTotal}}</div>
         <div class="shouyi-item-txt">累计收益</div>
       </div>
-      <div class="shouyi-item">
+      <div class="shouyi-item" @click="toFans">
         <div class="shouyi-item-num">{{memberInfo.fansCount}}</div>
         <div class="shouyi-item-txt">我的粉丝</div>
       </div>
@@ -132,6 +132,18 @@ export default {
     })
   },
   methods: {
+    // 去收益
+    toEst(){
+      this.$router.push({
+            path:"/estimate"
+        })
+    },
+    // 去粉丝
+    toFans(){
+      this.$router.push({
+            path:"/fans"
+        })
+    },
     // 更多服务
     toMore(index){
       if(index == 0){

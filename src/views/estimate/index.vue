@@ -7,15 +7,15 @@
         </div>
         <div class='header-bottom flex'>
             <div class='header-bottom-item'>
-            <div class='header-bottom-item-money'><span>{{money}}</span></div>
+            <div class='header-bottom-item-money'><span>{{memberInfo.predictOfToday}}</span></div>
             <div class='header-bottom-item-text'><span>今日收益(元)</span></div>
             </div>
             <div class='header-bottom-item middle'>
-            <div class='header-bottom-item-money'><span>{{money}}</span></div>
+            <div class='header-bottom-item-money'><span>{{memberInfo.predictOfTotal}}</span></div>
             <div class='header-bottom-item-text'><span>累计收益(元)</span></div>
             </div>
             <span class='header-bottom-item'>
-            <div class='header-bottom-item-money'><span>{{money}}</span></div>
+            <div class='header-bottom-item-money'><span>{{memberInfo.predictOfTotal}}</span></div>
             <span class='header-bottom-item-text'><span>账户余额(元)</span></span>
             </span>
         </div>
@@ -63,6 +63,7 @@
 </template>
 
 <script>
+import {memberInfo} from '@/api/member'
 export default {
   name: 'estimate',
 
@@ -77,10 +78,16 @@ export default {
             { name: '选项' },
             { name: '选项' },
             { name: '选项', subname: '描述信息' }
-        ]
+        ],
+        memberInfo:{}
     }
   },
-
+  created(){
+    memberInfo().then(res=>{
+      console.log(res)
+      this.memberInfo = res.data
+    })
+  },
   methods: {
     select(){
         this.show = true;
