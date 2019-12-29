@@ -65,7 +65,7 @@
         </div>
         <div v-if="details.status == 0" class="footer-center">
             <div class="footer-cancle">取消订单</div>
-            <div class="footer-right" @click="pay">付款</div>
+            <div class="footer-right" @click="Payment">付款</div>
         </div>
         <div v-if="details.status == 1" class="footer-center">
             <div class="footer-cancle">提醒发货</div>
@@ -140,7 +140,7 @@ export default {
         window.location.href = 'https://xiaokefu.com.cn/s/11272kto0'
     },
       // 支付
-    pay(){
+    Payment(){
         pay(this.details.id).then(res=>{
             console.log(res)
             orderDetail(this.id).then(res=>{
@@ -156,10 +156,6 @@ export default {
     // 复制失败时的回调函数
     onError (e) {
         Toast.fail('复制失败')
-    },
-    // 支付
-    pay(){
-
     }
   }
 }

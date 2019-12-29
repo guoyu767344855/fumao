@@ -95,6 +95,7 @@ export default {
                     alipayRealname:'',
                     amount:''
                 }
+                this.amount=res.data.balance
             }else{
                 Toast.fail(res.message)
             }

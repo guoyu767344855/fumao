@@ -60,7 +60,7 @@ export default {
           pageSize: 10,
           sortDirection: "string",
           sortField: "string",
-          status:0
+          status:''
         },
     }
   },

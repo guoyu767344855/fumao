@@ -57,7 +57,7 @@
                     </div>
                 </div>
                 <div class='people-item-text' style="text-align:right;">
-                    <div class='people-item-text-count'><span>待结算</span></div> 
+                    <div class='people-item-text-count'><span>{{item.settled ? '已结算':'未结算'}}</span></div> 
                     <div class='people-item-text-status'><span>收益 ¥{{item.amount}}</span></div> 
                 </div>
             </div>
