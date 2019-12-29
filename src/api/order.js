@@ -22,3 +22,10 @@ export function orderDetail(data) {
     method: 'get'
   })
 }
+
+export function receive(data) {
+  return request({
+    url:'/order/receive?orderId='+ data,
+    method: 'post',
+  })
+}

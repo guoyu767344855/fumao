@@ -71,7 +71,7 @@
             <div class="footer-cancle">提醒发货</div>
         </div>
         <div v-if="details.status == 2" class="footer-center">
-            <div class="footer-right">确认收货</div>
+            <div class="footer-right" @click="confirmReceipt">确认收货</div>
         </div>
     </div>
   </div>
@@ -79,7 +79,7 @@
 
 <script>
 import { Toast } from 'vant'
-import {orderDetail} from '@/api/order'
+import {orderDetail,receive} from '@/api/order'
 import {pay} from '@/utils/pay'
 export default {
   name: 'orderDetail',
@@ -103,10 +103,7 @@ export default {
     }else{
         this.paystatus = false
     }
-    orderDetail(this.id).then(res=>{
-        console.log(res)
-        this.details = res.data
-    })
+    this.getDetail();
   },
   beforeDestroy(){
       console.log('页面销毁前')
@@ -135,19 +132,30 @@ export default {
     }
   },
   methods: {
-      //   客服
+    //   确认收货
+    confirmReceipt(){
+        receive(this.details.id).then(res=>{
+            console.log('确认收货',res)
+            this.getDetail();
+        })
+    },
+    //   客服
     kefu(){
         window.location.href = 'https://xiaokefu.com.cn/s/11272kto0'
     },
-      // 支付
+    // 支付
     Payment(){
         pay(this.details.id).then(res=>{
             console.log(res)
-            orderDetail(this.id).then(res=>{
+            this.getDetail();
+        })
+    },
+    // 获取详情
+    getDetail(){
+        orderDetail(this.id).then(res=>{
                 console.log(res)
                 this.details = res.data
             })
-        })
     },
     // 复制成功时的回调函数
     onCopy (e) {
