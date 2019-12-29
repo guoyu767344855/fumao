@@ -134,6 +134,22 @@ export const constantRoutes = [
       keepAlive: false
     },
     component: () => import('@/views/fans/index')
+  },
+  {
+    path: '/withdraw',
+    meta:{
+      title: '提现',
+      keepAlive: false
+    },
+    component: () => import('@/views/withdraw/index')
+  },
+  {
+    path: '/aliPay',
+    meta:{
+      title: '修改绑定',
+      keepAlive: false
+    },
+    component: () => import('@/views/aliPay/index')
   }
 ]
 

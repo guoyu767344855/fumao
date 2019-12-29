@@ -14,6 +14,10 @@
       </div>
     </div>
     <div class="shouyi">
+      <!-- <div class="shouyi-item" @click="toEst">
+        <div class="shouyi-item-num">{{memberInfo.balance}}</div>
+        <div class="shouyi-item-txt">账户余额</div>
+      </div> -->
       <div class="shouyi-item" @click="toEst">
         <div class="shouyi-item-num">{{memberInfo.predictOfToday}}</div>
         <div class="shouyi-item-txt">今日收益</div>

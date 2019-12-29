@@ -1,6 +1,6 @@
 <template>
   <div class="footer">
-    <van-tabbar route v-model="active" safe-area-inset-bottom border>
+    <van-tabbar route v-model="active" safe-area-inset-bottom border active-color="#FF3E53">
         <van-tabbar-item
             v-for="(item,index) in iconList"
             :key="index"
@@ -37,8 +37,8 @@ export default {
                 name:'商学院',
                 route:'/business',
                 icon: {
-                    active: require('../assets/images/home-active.png'),
-                    inactive: require('../assets/images/home.png')
+                    active: require('../assets/images/shang-active.png'),
+                    inactive: require('../assets/images/shang.png')
                 }
             },
             {

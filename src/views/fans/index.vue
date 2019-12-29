@@ -7,16 +7,16 @@
         @load="onLoad"
         class="people"
         >
-        <div class='people-item flex' key={index}>
+        <div v-for="(item, index) in list" :key="index" class='people-item flex'>
             <div class='flex'>
-            <img class='people-item-img' src="" />
+            <img class='people-item-img' :src="item.icon" />
             <div class='people-item-text'>
-                <div class='people-item-text-name'><span>昵称</span></div> 
-                <div class='people-item-text-time'><span>时间</span></div> 
+                <div class='people-item-text-name'><span>{{item.nickname}}</span></div> 
+                <div class='people-item-text-time'><span>{{item.createTime}}</span></div> 
             </div>
             </div>
             <div class='people-item-text'>
-            <div class='people-item-text-count'><span>联系Ta</span></div>
+            <div class='people-item-text-count' v-clipboard:copy="item.nickname" v-clipboard:success="onCopy" v-clipboard:error="onError"><span>联系Ta</span></div>
             </div>
         </div>
     </van-list>
@@ -24,6 +24,8 @@
 </template>
 
 <script>
+import { Toast } from 'vant'
+import {orderList} from '@/api/fans'
 export default {
   name: 'fans',
 
@@ -43,12 +45,19 @@ export default {
           pageSize: 10,
           sortDirection: "string",
           sortField: "string",
-          status:0
         },
     }
   },
 
   methods: {
+    // 复制成功时的回调函数
+    onCopy (e) {
+        Toast.success('复制成功')
+    },
+    // 复制失败时的回调函数
+    onError (e) {
+        Toast.fail('复制失败')
+    },
       // 选择订单状态
     chooseStatus(e){
       // console.log(e)
@@ -59,22 +68,21 @@ export default {
           pageSize: 10,
           sortDirection: "string",
           sortField: "string",
-          status:e == 0 ? '' : e-1
       }
       this.onLoad()
     },
     // 获取列表详情
     getList(){
       console.log(this.pageQyery.pageIndex)
-    //   orderList(this.pageQyery).then(res=>{
-    //     console.log('订单列表',res)
-    //     this.list = this.list.concat(res.list);
-    //     this.loading = false;
-    //     this.pageQyery.pageIndex ++ 
-    //     if (this.list.length >= res.total) {
-    //       this.finished = true;
-    //     }
-    //   })
+      orderList(this.pageQyery).then(res=>{
+        console.log('订单列表',res)
+        this.list = this.list.concat(res.list);
+        this.loading = false;
+        this.pageQyery.pageIndex ++ 
+        if (this.list.length >= res.total) {
+          this.finished = true;
+        }
+      })
     },
     onLoad() {
       this.getList();
