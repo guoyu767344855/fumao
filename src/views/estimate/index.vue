@@ -146,7 +146,7 @@ export default {
         align-items: center;
     }
     .header{
-        background-color: #FFDB29;
+        background-color: #FF5164;
         padding: 0 25px;
         &-top{
             justify-content: space-between;

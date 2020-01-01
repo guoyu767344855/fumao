@@ -167,6 +167,7 @@ export default {
     font-weight:normal;
     color:rgba(51,51,51,1);
     line-height:30px;
+    text-align: center;
     &-img{
       width:120px;
       height:120px;

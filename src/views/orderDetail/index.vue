@@ -5,8 +5,8 @@
         <img :src="details.status | imgFilter" alt="">
     </div>
     <div class="location">
-        <div style="display:flex;align-items:center;">
-            <van-icon class="location-lef" name="location" />
+        <div style="display:flex;align-items:flex-start;">
+            <img class="location-img" src="../../assets/images/location.png" alt="">
             <div class="location-mid">
                 <div>
                     <span class="location-mid-name">{{details.receiverName}}</span>
@@ -274,6 +274,14 @@ export default {
         border-radius:10px;
         margin: 18px 16px;
         justify-content: space-between;
+        align-items: flex-start;
+        &-img{
+            width:32px;
+            height:32px;
+            margin-right: 18px;
+            margin-left: 34px;
+            margin-top: 10px;
+        }
         &-lef{
             padding: 38px;
             font-size: 40px; 

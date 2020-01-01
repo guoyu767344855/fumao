@@ -1,11 +1,11 @@
 <template>
   <div class='pay'>
     <div :class="addressList.length != 0 ? 'location ':'location loca'" @click="toLocation">
-        <van-icon class="location-lef" name="location" />
+        <img class="location-img" src="../../assets/images/location.png" alt="">
         <div v-if="addressList.length != 0" class="location-mid">
             <div>
                 <span class="location-mid-name">{{address.name}}</span>
-                <span>{{address.phoneNumber}}</span>
+                <span class="location-mid-phone">{{address.phoneNumber}}</span>
             </div>
             <div>{{address.province}} {{address.city}} {{address.region}} {{address.detailAddress}}</div>
         </div>
@@ -209,8 +209,13 @@ export default {
     .location{
         display: flex;
         align-items: center;
-        height: 128px;
         color: #1A1A1A;
+        &-img{
+            width:32px;
+            height:32px;
+            margin-right: 18px;
+            margin-left: 34px;
+        }
         &-lef{
             padding: 38px;
             font-size: 40px; 
@@ -219,17 +224,17 @@ export default {
             text-align: left;
             flex-shrink: 1;
             flex-grow: 1;
-            font-size:30px;
+            font-size:24px;
             font-family:PingFangSC-Regular,PingFang SC;
             font-weight:400;
             line-height:42px;
-            // &-name{
-            //     font-size:36px;
-            //     font-family:PingFangSC-Regular,PingFang SC;
-            //     font-weight:400;
-            //     line-height:50px; 
-            //     margin-right: 18px;
-            // }
+            padding: 20px 0;
+            &-name{
+                font-size:28px;
+            }
+            &-phone{
+                font-size:28px;
+            }
         }
         &-rig{
             padding: 5px;
