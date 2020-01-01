@@ -132,7 +132,7 @@ export default {
                     padding-top: 20px;
                 }
                 &-count{
-                    background:rgba(255,219,41,1);
+                    background:#FF5164;
                     border-radius:60px;
                     font-size:28px;
                     color:rgba(0,0,0,1);
