@@ -1,23 +1,36 @@
 <template>
   <div class='orderDetail'>
-    <div class="header">{{details.status | statusFilter}}</div>
-    <div class="location">
-        <van-icon class="location-lef" name="location" />
-        <div class="location-mid">
-            <div>
-                <span class="location-mid-name">{{details.receiverName}}</span>
-                <span>{{details.receiverPhone}}</span>
-            </div>
-            <div>{{details.receiverProvince}} {{details.receiverCity}} {{details.receiverRegion}} {{details.receiverDetailAddress}}</div>
-        </div>
-        <van-icon class="location-rig" name="arrow" />
+    <div class="header">
+        <div>{{details.status | statusFilter}}</div>
+        <img :src="details.status | imgFilter" alt="">
     </div>
+    <div class="location">
+        <div style="display:flex;align-items:center;">
+            <van-icon class="location-lef" name="location" />
+            <div class="location-mid">
+                <div>
+                    <span class="location-mid-name">{{details.receiverName}}</span>
+                    <span>{{details.receiverPhone}}</span>
+                </div>
+                <div>{{details.receiverProvince}} {{details.receiverCity}} {{details.receiverRegion}} {{details.receiverDetailAddress}}</div>
+            </div>
+        </div>
+        <!-- <van-icon class="location-rig" name="arrow" /> -->
+    </div>
+    <div class="lin"></div>
     <div class="goods">
         <img class="goods-img" :src="details.productPic" alt="">
         <div class="goods-rig">
-            <div class="goods-rig-one">{{details.productName}}</div>
-            <div class="goods-rig-two">规格：默认</div>
-            <div class="goods-rig-thr">¥{{details.payAmount}}</div>
+            <div class="goods-rig-one">
+                <div class="goods-rig-one-top">{{details.productName}}</div>
+                <div style="text-align:right;">
+                    <div>¥{{details.unitPrice}}</div>
+                    <div>X1</div>
+                </div>
+            </div>
+            <div class="goods-rig-two">
+                <span v-for="(items,indexs) in details.spec" :key="indexs" class="guige">{{items ? items : '默认'}}</span>
+            </div>
         </div>
     </div>
     <div class="line">
@@ -32,15 +45,14 @@
         <div class="line-left">备注</div>
         <input class="line-txt" maxlength="20" placeholder="选填" v-model="remark" :disabled="details.status == 0 ? false : true"/>
     </div>
-    <div class="line">
-        <div class="line-left">总计</div>
+    <div class="line" style="justify-content:flex-end">
+        <div class="line-left">费用合计：</div>
         <div class="line-num">¥{{details.totalAmount}}</div>
     </div>
-    <div class="lin"></div>
+    <div class="dingdan">
+        <div class="line-left">订单信息</div>
+    </div>
     <div>
-        <div class="line">
-            <div class="line-left">订单信息</div>
-        </div>
         <div>
             <div class="detail">
                 <div>订单编号</div>
@@ -57,7 +69,6 @@
             </div>
         </div>
     </div>
-    <div class="lin"></div>
     <div class="footer">
         <div class="footer-left">
             <van-icon class="service-o" name="service-o" />
@@ -129,6 +140,21 @@ export default {
       }else if(e==5){
         return '无效订单'
       }
+    },
+    imgFilter(e){
+        if(e==0){
+            return require('../../assets/images/daifukuan.png')
+        }else if(e==1){
+            return require('../../assets/images/daifahuo.png')
+        }else if(e==2){
+            return require('../../assets/images/yifahuo.png')
+        }else if(e==3){
+            return require('../../assets/images/yiwancheng.png')
+        }else if(e==4){
+            return require('../../assets/images/yiguanbi.png')
+        }else if(e==5){
+            return require('../../assets/images/yiguanbi.png')
+        }
     }
   },
   methods: {
@@ -204,7 +230,6 @@ export default {
             align-items: center;
         }
         &-right{
-            border-radius:10px;
             border:1PX solid rgba(255,103,2,1);
             font-size:30px;
             font-family:PingFangSC-Regular,PingFang SC;
@@ -215,7 +240,6 @@ export default {
             margin-right: 28px;
         }
         &-cancle{
-            border-radius:10px;
             border:1PX solid rgba(151,151,151,1);
             font-size:30px;
             font-family:PingFangSC-Regular,PingFang SC;
@@ -227,21 +251,29 @@ export default {
         }
     }
     .header{
-        font-size:40px;
-        font-family:PingFangSC-Semibold,PingFang SC;
-        font-weight:600;
-        color:rgba(51,51,51,1);
-        line-height:56px;
         text-align: left;
         padding-left: 50px;
+        display: flex;
+        justify-content: space-between;
+        background-color: #FF5164;
+        font-size:32px;
+        font-family:HYQiHei-FES,HYQiHei;
+        font-weight:normal;
+        color:rgba(255,255,255,1);
+        align-items: center;
+        height: 140px;
+        img{
+            width: 150px;
+            height: 120ox;
+            align-self: flex-end;
+        }
     }
     .location{
         display: flex;
         align-items: center;
         border-radius:10px;
-        border:1PX solid #979797;
         margin: 18px 16px;
-        padding: 20px;
+        justify-content: space-between;
         &-lef{
             padding: 38px;
             font-size: 40px; 
@@ -267,6 +299,7 @@ export default {
             padding: 5px;
             font-size: 40px; 
             color:rgba(112,109,109,1);
+            justify-self: flex-end;
         }
     }
     .goods{
@@ -275,33 +308,40 @@ export default {
         margin: 40px 40px 20px 40px;
         padding: 10px;
         &-img{
-            width:177px;
+            width:180px;
             height:180px;
-            margin-right: 30px;
+            border-radius:10px;
         }
         &-rig{
             text-align: left;
+            width: 100%;
+            background-color: #EEEEEE;
+            height:180px;
+            padding: 20px;
+            border-radius:10px;
             &-one{
-                font-size:36px;
-                font-family:PingFangSC-Regular,PingFang SC;
-                font-weight:400;
-                color:rgba(51,51,51,1);
-                line-height:50px;
+                font-size:28px;
+                font-family:HYQiHei-EES,HYQiHei;
+                font-weight:normal;
+                color:rgba(34,34,34,1);
+                line-height:32px;
+                display: flex;
+                justify-content:space-between;
+                &-top{
+                    width:320px;
+                }
             }
             &-two{
-                font-size:30px;
-                font-family:PingFangSC-Regular,PingFang SC;
-                font-weight:400;
-                color:rgba(112,109,109,1);
-                line-height:42px;
-                margin: 10px 0;
-            }
-            &-thr{
-                font-size:36px;
-                font-family:PingFangSC-Regular,PingFang SC;
-                font-weight:400;
-                color:rgba(247,0,0,1);
-                line-height:50px;
+                span{
+                    font-size:24px;
+                    font-family:HYQiHei-DES,HYQiHei;
+                    font-weight:normal;
+                    color:rgba(51,51,51,1);
+                    line-height:30px;
+                    padding: 4px 16px;
+                    border-radius:10px;
+                    border:1PX solid rgba(66,66,63,0.3);
+                }
             }
         }
     }
@@ -309,15 +349,14 @@ export default {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        border-bottom: 1px solid #EEEEEE;
         padding: 25px 10px;
         margin: 0 40px;
         &-left{
-            font-size:34px;
-            font-family:PingFangSC-Regular,PingFang SC;
-            font-weight:400;
-            color:rgba(0,0,0,1);
-            line-height:48px;
+            font-size:28px;
+            font-family:HYQiHei-DZS,HYQiHei;
+            font-weight:normal;
+            color:rgba(51,51,51,1);
+            line-height:34px;
         }
         &-num{
             font-size:34px;
@@ -337,6 +376,15 @@ export default {
             background-color: #ffffff;
         }
     }
+    .dingdan{
+        background:rgba(242,242,242,1);
+        font-size:28px;
+        font-family:HYQiHei-DZS,HYQiHei;
+        font-weight:normal;
+        color:rgba(96,96,96,1);
+        line-height:40px;
+        padding: 20px 50px;
+    }
     .lin{
         width: 100%;
         height: 17px;
@@ -349,7 +397,7 @@ export default {
         color:rgba(153,153,153,1);
         line-height:40px;
         display: flex;
-        padding-left: 50px;
+        padding-left: 40px;
         margin: 10px;
         div{
             margin-right: 30px;

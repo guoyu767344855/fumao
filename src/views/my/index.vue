@@ -9,20 +9,16 @@
         </div>
       </div>
       <div class="header-right" @click="toLocation">
-        <van-icon name="location" />
-        <span class="header-right">收货地址</span>
+        <van-icon class="location" name="location" />
+        <span >收货地址</span>
       </div>
     </div>
     <div class="shouyi">
-      <!-- <div class="shouyi-item" @click="toEst">
-        <div class="shouyi-item-num">{{memberInfo.balance}}</div>
-        <div class="shouyi-item-txt">账户余额</div>
-      </div> -->
       <div class="shouyi-item" @click="toEst">
         <div class="shouyi-item-num">{{memberInfo.predictOfToday}}</div>
         <div class="shouyi-item-txt">今日收益</div>
       </div>
-      <div class="shouyi-item" @click="toEst">
+      <div class="shouyi-item center" @click="toEst">
         <div class="shouyi-item-num">{{memberInfo.predictOfThisMonth}}</div>
         <div class="shouyi-item-txt">本月收益</div>
       </div> 
@@ -30,34 +26,32 @@
         <div class="shouyi-item-num">{{memberInfo.predictOfTotal}}</div>
         <div class="shouyi-item-txt">累计收益</div>
       </div>
-      <div class="shouyi-item" @click="toFans">
-        <div class="shouyi-item-num">{{memberInfo.fansCount}}</div>
-        <div class="shouyi-item-txt">我的粉丝</div>
+    </div>
+    <div class="order">
+      <div class="myOrder">
+        <div class="myOrder-left">我的订单</div>
+        <div class="myOrder-right" @click="toMyorder('')">
+          <span>全部订单</span>
+          <van-icon name="arrow" />
+        </div>
+      </div>
+      <div class="orderlist">
+        <div class="orderlist-item" v-for="(item, index) in orderList" :key="index" @click="toMyorder(item.status)">
+          <img class="orderlist-item-img" :src="item.pic" alt="">
+          <div class="orderlist-item-txt">{{item.name}}</div>
+          <span class="doot"></span>
+        </div>
       </div>
     </div>
-    <div class="line"></div>
-    <div class="myOrder">
-      <div class="myOrder-left">我的订单</div>
-      <div class="myOrder-right" @click="toMyorder('')">
-        <span>全部订单</span>
-        <van-icon name="arrow" />
-      </div>
-    </div>
-    <div class="shouyi">
-      <div class="shouyi-item" v-for="(item, index) in orderList" :key="index" @click="toMyorder(item.status)">
-        <img class="shouyi-item-img" :src="item.pic" alt="">
-        <div class="shouyi-item-txt">{{item.name}}</div>
-      </div>
-    </div>
-    <div class="line"></div>
-    <div class="more">更多服务</div>
-    <div class="moreList" v-for="(item, index) in moreList" :key="index" @click="toMore(index)">
-      <img class="moreList-img" :src="item.pic" alt="">
-      <div class="moreList-right">
-        <div>{{item.name}}</div>
-        <div class="moreList-right-txt">
-          <span>{{item.dc}}</span>
-          <van-icon class="arrow" name="arrow" />
+    <div class="moreListBox">
+      <div class="moreList" v-for="(item, index) in moreList" :key="index" @click="toMore(index)">
+        <img class="moreList-img" :src="item.pic" alt="">
+        <div class="moreList-right">
+          <div>{{item.name}}</div>
+          <div class="moreList-right-txt">
+            <span>{{item.dc ? memberInfo.fansCount : ''}}</span>
+            <van-icon class="arrow" name="arrow" />
+          </div>
         </div>
       </div>
     </div>
@@ -75,6 +69,11 @@ export default {
       userInfo:{},
       orderList:[
         {
+          name:'全部订单',
+          pic:require('../../assets/images/order.png'),
+          status:''
+        },
+        {
           name:'待付款',
           pic:require('../../assets/images/pay.png'),
           status:0
@@ -89,21 +88,17 @@ export default {
           pic:require('../../assets/images/shou.png'),
           status:2
         },
-        {
-          name:'全部订单',
-          pic:require('../../assets/images/order.png'),
-          status:''
-        },
       ],
       moreList:[
+        {
+          pic:require('../../assets/images/fensi.png'),
+          name:'粉丝',
+          dc:true
+        },
         {
           pic:require('../../assets/images/kefu.png'),
           name:'客服'
         },
-        // {
-        //   pic:require('../../assets/images/bind.png'),
-        //   name:'绑定手机'
-        // },
         {
           pic:require('../../assets/images/about.png'),
           name:'关于我们',
@@ -129,7 +124,7 @@ export default {
       }else if(res.data.level == 2){
         this.userDec = require('../../assets/images/aixin.png')
       }else if(res.data.level == 3){
-        this.userDec = require('../../assets/images/CEO.png')
+        this.userDec = require('../../assets/images/lianchuang.png')
       }else if(res.data.level == 4){
         this.userDec = require('../../assets/images/lianchuang.png')
       }
@@ -150,10 +145,12 @@ export default {
     },
     // 更多服务
     toMore(index){
-      if(index == 0){
+      if(index == 1){
         window.location.href = 'https://xiaokefu.com.cn/s/11272kto0'
-      }else if(index == 1){
+      }else if(index == 2){
         window.location.href = 'https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzU2Nzc0MzU5Mg==&scene=123#wechat_redirect'
+      }else if(index == 0){
+        this.toFans();
       }
     },
     // 去地理位置
@@ -175,15 +172,20 @@ export default {
 <style lang='less' scoped>
 .my{
   padding-bottom: 50PX;
+  background:#EEEEEE;
+  min-height: 100vh;
   .header{
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     justify-content: space-between;
-    padding: 30px 0;
+    padding: 30px 0 120px 0;
+    background-color: #FF5164;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
     &-img{
       width:120px;
       height:120px;
-      border-radius:4px;
+      border-radius:50%;
       margin: 0 33px;
       flex-shrink: 1;
     }
@@ -207,67 +209,103 @@ export default {
       text-align: left;
     }
     &-right{
+      margin-right: 20px;
       flex-shrink: 1;
       display: flex;
       align-items: center;
-      font-size:34px;
-      font-family:PingFangSC-Regular,PingFang SC;
-      font-weight:400;
-      color:rgba(51,51,51,1);
-      line-height:48px;
-      background-color: #D8D8D8;
-      padding: 2px 10px;
-      border-top-left-radius: 50px;
-      border-bottom-left-radius: 50px;
+      border-radius:30px;
+      opacity:0.49;
+      border:2px solid rgba(255,255,255,1);
+      padding: 16px 20px;
+      color: #FFFFFF;
+      .location{
+        margin-top: -3px;
+      }
     }
   }
   .shouyi{
     display: flex;
     align-items: center;
-    padding: 0 33px;
+    padding: 34px 33px;
     justify-content: space-around;
-    padding: 20px 0;
+    margin: 0 20px;
     text-align: center;
+    background:rgba(255,255,255,1);
+    border-radius:10px;
+    margin-top: -80px;
     &-item{
+      flex: 1;
       &-num{
-        font-size:60px;
+        font-size:28px;
         font-family:PingFangSC-Regular,PingFang SC;
         font-weight:400;
         color:rgba(51,51,51,1);
-        line-height:84px;
+        line-height:34px;
       }
       &-txt{
-        font-size:26px;
+        font-size:24px;
         font-family:PingFangSC-Regular,PingFang SC;
         font-weight:400;
         color:rgba(153,153,153,1);
         line-height:37px;
       }
       &-img{
-        // width:70px;
+        width:70px;
         height:70px;
         margin-bottom: 23px;
       }
     }
+    .center{
+      border-right: 1px solid #EEEEEE;
+      border-left: 1px solid #EEEEEE;
+    }
   }
-  .line{
-    height:20px;
-    background:#EEEEEE;
-    border:1px solid #EEEEEE;
+  .order{
+    background-color: #FFFFFF;
+    margin: 20px;
+  }
+  .orderlist{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    &-item{
+      text-align: center;
+      position: relative;
+      &-img{
+        width: 52px;
+        height: 52px;
+      }
+      &-txt{
+        font-size:20px;
+        margin-top: 22px;
+        margin-bottom: 30px;
+      }
+      .doot{
+        font-size: 20px;
+        padding: 0px 8px;
+        border-radius: 50%;
+        background-color: #FF5164;
+        color: #FFFFFF;
+        position: absolute;
+        top: 0;
+        right: 3px;
+        opacity: .9;
+      }
+    }
   }
   .myOrder{
     display: flex;
     justify-content: space-between;
     padding: 16px 15px 20px 32px;
     &-left{
-      font-size:36px;
+      font-size:28px;
       font-family:PingFangSC-Semibold,PingFang SC;
       font-weight:600;
       color:rgba(51,51,51,1);
       line-height:50px;
     }
     &-right{
-      font-size:32px;
+      font-size:28px;
       font-family:PingFangSC-Regular,PingFang SC;
       font-weight:400;
       color:rgba(153,153,153,1);
@@ -276,34 +314,28 @@ export default {
       align-items: center;
     }
   }
-  .more{
-    font-size:36px;
-    font-family:PingFangSC-Semibold,PingFang SC;
-    font-weight:600;
-    color:rgba(51,51,51,1);
-    line-height:50px;
-    padding: 30px 0 0px 17px;
-    text-align: left;
+  .moreListBox{
+    margin: 20px;
   }
   .moreList{
     display: flex;
     align-items: center;
-    padding: 0px 15px 0px 17px;
+    border-radius:10px;
+    background-color: #FFFFFF;
+    border-bottom: 1PX solid #EEEEEE;
+    padding: 26px;
     &-img{
-      width:60px;
-      height:60px;
+      width:42px;
+      height:42px;
       border-radius:2px;
-      margin-right: 32px;
-      margin-top: -10px;
+      margin-right: 26px;
     }
     &-right{
       flex-grow: 1;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border-bottom: 1px solid #EEEEEE;
-      line-height: 110px;
-      font-size:34px;
+      font-size:28px;
       &-txt{
         display: flex;
         align-items: center;
@@ -313,7 +345,7 @@ export default {
         color:rgba(153,153,153,1);
         line-height:45px;
         .arrow{
-          margin: 0 30px 0 20px;
+          margin: 0 0 0 20px;
         }
       }
     }

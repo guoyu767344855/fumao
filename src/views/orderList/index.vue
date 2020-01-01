@@ -11,22 +11,27 @@
             class="list"
             >
             <div class="list-item" v-for="(item, index) in list" :key="index" @click="toDetail(item)">
-                <div class="list-item-header flex">
-                    <div>{{item.createTime}}</div>
-                    <div class="list-item-header-dc">{{item.status | statusFilter}}</div>
-                </div>
+                
                 <div class="list-item-content flex">
-                    <div class="flex">
-                        <img class="list-img" :src="item.productPic" alt="">
-                        <div class="list-txt">
-                            <div class="list-txt-top">{{item.productName}}</div>
-                            <div style="margin-top:20px;">X1</div>
-                        </div>
+                    <img class="list-img" :src="item.productPic" alt="">
+                    <div class="list-right flex">
+                      <div class="list-txt">
+                          <div class="list-txt-top">{{item.productName}}</div>
+                          <div class="guigeBox">
+                            <span v-for="(items,indexs) in item.spec" :key="indexs" class="guige">{{items ? items : '默认'}}</span>
+                          </div>
+                      </div>
+                      <div style="text-align:right;">
+                        <div>¥{{item.unitPrice}}</div>
+                        <div style="margin-top:20px;">X1</div>
+                      </div>
                     </div>
-                    <div class="list-count"><span>支付金额：</span><span class="money">¥{{item.payAmount}}</span></div>
                 </div>
-                <div class="list-item-footer">
-                    <span>详情</span>
+                <div class="heji">共{{item.qty}}件商品 合计：¥{{item.payAmount}}</div>
+                <div class="list-item-header flex">
+                    <div class="list-item-header-dc">{{item.status | statusFilter}}</div>
+                    <!-- <div>{{item.createTime}}</div> -->
+                    <span class="detail">详情</span>
                 </div>
             </div>
             </van-list>
@@ -133,27 +138,31 @@ export default {
 .orderList{
     .list{
     &-item{
-      padding: 30px 33px 5px 30px;
+      padding: 20px 30px;
       text-align: left;
       border-bottom: 15px solid #EEEEEE;
       background-color: #ffffff;
       &-header{
-        font-size:20px;
-        font-family:PingFangSC-Regular,PingFang SC;
-        font-weight:400;
-        color:rgba(51,51,51,1);
-        line-height:28px;
+        font-size:24px;
+        font-family:HYQiHei-DES,HYQiHei;
+        font-weight:normal;
+        color:rgba(254,51,45,1);
+        line-height:30px;
+        justify-content: space-between;
+        margin-top: 20px;
+        align-items: center;
         &-dc{
-            font-size:20px;
             font-family:PingFangSC-Regular,PingFang SC;
             font-weight:400;
-            color:rgba(243,5,5,1);
-            line-height:28px;
+            color:#FF5E45;
+        }
+        .detail{
+          border:2px solid rgba(254,51,45,1);
+          padding: 10px 30px;
         }
       }
       &-content{
           padding: 20px 0;
-          border-bottom: 1px solid #DFDBDB;
       }
       &-footer{
         text-align: right;
@@ -170,10 +179,27 @@ export default {
         }
       }
     }
+    .heji{
+      text-align: right;
+      font-size:28px;
+      font-family:HYQiHei-DES,HYQiHei;
+      font-weight:normal;
+      color:rgba(51,51,51,1);
+      line-height:34px;
+      padding-bottom: 18px;
+      border-bottom: 1PX solid #F2F2F2;
+    }
     &-img{
-        width:118px;
-        height:120px;
-        margin-right: 15px;
+        width:180px;
+        height:180px;
+        border-radius:10px;
+    }
+    &-right{
+      background-color: #EEEEEE;
+      width: 100%;
+      padding: 20px;
+      justify-content: space-between;
+      border-radius: 10px;
     }
     &-txt{
         font-size:26px;
@@ -181,8 +207,20 @@ export default {
         font-weight:400;
         color:rgba(51,51,51,1);
         line-height:37px;
+        width:320px;
         &-top{
           font-weight: 600;
+        }
+        .guigeBox{
+          margin-top:14px;
+          width:320px;
+          font-size:24px;
+        }
+        .guige{
+          border-radius:10px;
+          border:1PX solid rgba(66,66,63,0.3);
+          padding: 4px 16px;
+          margin-left: 10px;
         }
     }
     &-count{
@@ -198,7 +236,6 @@ export default {
     }
     .flex{
         display: flex;
-        justify-content: space-between;
     }
   }
 }
