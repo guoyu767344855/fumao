@@ -1,6 +1,11 @@
 <!-- home -->
 <template>
   <div class="home">
+    <div class="canvasBox" v-if="showImg">
+      <div class="close" @click="closeImg">关闭</div>
+      <vue-canvas-poster :painting="painting" @success="success"></vue-canvas-poster>
+      <div class="saveImg">长按图片进行保存</div>
+    </div>
     <div>
       <van-swipe class="swiper" :autoplay="3000" indicator-color="white">
         <van-swipe-item class="swiper-item" v-for="(item,index) in bannerList" :key="index">
@@ -55,7 +60,8 @@
 </template>
 
 <script>
-import {list} from '@/api/home'
+import { Toast } from 'vant';
+import {list,getShareQrCode} from '@/api/home'
 export default {
   name:'home',
   components: {
@@ -63,29 +69,30 @@ export default {
 
   data () {
     return {
+      showImg:false,
+      src:'',
       // 海报
       painting:{
-        width: 100,
-        height: 100,
+        width: 225,
+        height: 400,
         views:[
           {
-            type: 'rect',
-            top: 0,
+            type: 'image',
+            url: require('../../assets/images/canvas.jpg'),
             left: 0,
-            background: '#f4f5f7',
-            width: 550,
-            height: 876
+            top: 0,
+            width: 225,
+            height: 400,
           },
           {
-            type: 'text',
-            content: '乖摸摸头的小店',
-            fontSize: 26,
-            bolder: true,
-            top: 0,
-            left: 0,
-            width: 360,
-            breakWord: true,
-            MaxLineNumber: 1,
+            type: 'qrcode',
+            content:'http://api-test.hangim.com/wxMpAuth/index',
+            background: '#fff',
+            color: '#000',
+            left: 89.5,
+            top: 303,
+            width: 60,
+            height: 60,
           },
         ]
       },
@@ -154,17 +161,23 @@ export default {
   computed: {},
 
   mounted () {
-    // console.log(process.env)
+
   },
   created(){
-    
+    getShareQrCode().then(res=>{
+      // console.log(res)
+    })
   },
   methods: {
-
+    // 关闭图片
+    closeImg(){
+      this.showImg = false;
+    },
     // 生成海报
     success(src) {
       // 设置img的src
       this.src = src
+      // console.log(src)
     },
     // 去icon
     toIcon(path){
@@ -176,11 +189,11 @@ export default {
         }
       })
       }else if(path == '加入富猫'){
-        this.$router.push({path:'/'})
+        this.showImg = true
       }else if(path == '财富学院'){
-        window.location.href = 'https://xiaokefu.com.cn/s/11272kto0'
+        Toast('建设中')
       }else if(path == '客服'){
-        window.location.href = 'https://xiaokefu.com.cn/s/11272kto0'
+        window.location.href = 'https://chat-new.mqimg.com/widget/standalone.html?eid=187321'
       }else{
         this.$router.push({path})
       }
@@ -345,3 +358,45 @@ export default {
   }
 }
 </style>
+<style>
+.canvasBox{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+  background-color: rgba(0, 0, 0, 0.7)
+}
+.canvas{
+    top:-50px !important;
+    right:0;
+    bottom:0;
+    left:0;
+    margin: auto !important;
+}
+.saveImg{
+    position: fixed;
+    bottom: 0;
+    line-height: 100px;
+    font-size: 30px;
+    width: 750px;
+    background-color: aliceblue;
+    text-align: center;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+   -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.close{
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  color: #ffffff;
+  font-size: 28px;
+  z-index: 10000;
+}
+</style>
+

@@ -142,7 +142,7 @@ export default {
             remark:this.remark
         }
         if(!this.address.id){
-            Toast.error('请选择地址')
+            Toast.fail('请选择地址')
             return
         }
         createOrder(data).then(res=>{

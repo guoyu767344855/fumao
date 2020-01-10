@@ -7,3 +7,10 @@ export function list(data) {
     data
   })
 }
+
+export function getShareQrCode() {
+  return request({
+    url:'/share/getShareQrCode',
+    method: 'get'
+  })
+}
