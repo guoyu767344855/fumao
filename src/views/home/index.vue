@@ -14,6 +14,12 @@
         <div class="iconList-text">{{item.name}}</div>
       </div>
     </div>
+    <div class="iconList iconList-two">
+      <div v-for="(item,index) in iconList2" :key="index" @click="toIcon(item.route)">
+        <img class="iconList-img" :src="item.pic" alt="">
+        <div class="iconList-text">{{item.name}}</div>
+      </div>
+    </div>
     <div class="line">
       <img class="line-left" src="../../assets/images/lineLeft.png" alt="">
       <div>为你推荐</div>
@@ -57,6 +63,32 @@ export default {
 
   data () {
     return {
+      // 海报
+      painting:{
+        width: 100,
+        height: 100,
+        views:[
+          {
+            type: 'rect',
+            top: 0,
+            left: 0,
+            background: '#f4f5f7',
+            width: 550,
+            height: 876
+          },
+          {
+            type: 'text',
+            content: '乖摸摸头的小店',
+            fontSize: 26,
+            bolder: true,
+            top: 0,
+            left: 0,
+            width: 360,
+            breakWord: true,
+            MaxLineNumber: 1,
+          },
+        ]
+      },
       bannerList:[
         require('../../assets/images/banner.png'),
         require('../../assets/images/banner.png'),
@@ -66,23 +98,45 @@ export default {
       iconList:[
         {
           pic:require('../../assets/images/huiyuan.png'),
-          name:'会员中心',
+          name:'富猫会员',
           route:'/member'
         },
         {
           pic:require('../../assets/images/huangjing.png'),
-          name:'黄精文化',
-          route:'/'
+          name:'加入富猫',
+          route:'加入富猫'
         },
         {
           pic:require('../../assets/images/chanpin.png'),
-          name:'产品中心',
+          name:'富猫产品',
           route:'/product'
         },
         {
           pic:require('../../assets/images/shangxue.png'),
-          name:'商学院',
+          name:'财富学院',
+          route:'财富学院'
+        },
+      ],
+      iconList2:[
+        {
+          pic:require('../../assets/images/meiri.png'),
+          name:'每日特惠',
+          route:'每日特惠'
+        },
+        {
+          pic:require('../../assets/images/liangxing.png'),
+          name:'两性商学院',
           route:'/business'
+        },
+        {
+          pic:require('../../assets/images/jiankang.png'),
+          name:'健康商学院',
+          route:'客服'
+        },
+        {
+          pic:require('../../assets/images/tuandui.png'),
+          name:'团队',
+          route:'/fans'
         },
       ],
       pageQyery:{
@@ -103,12 +157,33 @@ export default {
     // console.log(process.env)
   },
   created(){
-
+    
   },
   methods: {
+
+    // 生成海报
+    success(src) {
+      // 设置img的src
+      this.src = src
+    },
     // 去icon
     toIcon(path){
-      this.$router.push({path})
+      if(path == '每日特惠'){
+        this.$router.push({
+        path: '/goodDetail',
+        query:{
+          id: 40
+        }
+      })
+      }else if(path == '加入富猫'){
+        this.$router.push({path:'/'})
+      }else if(path == '财富学院'){
+        window.location.href = 'https://xiaokefu.com.cn/s/11272kto0'
+      }else if(path == '客服'){
+        window.location.href = 'https://xiaokefu.com.cn/s/11272kto0'
+      }else{
+        this.$router.push({path})
+      }
     },
     // 获取列表详情
     getList(){
@@ -177,6 +252,9 @@ export default {
     &-text{
       margin-top: 16px;
       font-size:26px;
+    }
+    &-two{
+      margin-top: 20px;
     }
   }
   .line{

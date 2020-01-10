@@ -37,6 +37,10 @@ import {
   ActionSheet
 } from 'vant'
 
+// canvas生成海报
+import vueCanvasPoster from 'vue-canvas-poster'
+Vue.use(vueCanvasPoster)
+
 Vue.use(VueClipboard).use(Toast).use(Button).use(NumberKeyboard).use(AddressList)
 .use(Tabbar).use(TabbarItem).use(Swipe).use(Stepper).use(ActionSheet)
 .use(SwipeItem).use(List).use(Icon).use(Popup).use(Sku)
