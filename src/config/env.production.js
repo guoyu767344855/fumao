@@ -1,6 +1,6 @@
 // 正式
 module.exports = {
-  title: 'vue-h5-template',
+  title: '富猫',
   api: {
     base_api: 'http://api-test.hangim.com/',
     common_api: 'http://api-test.hangim.com/'
