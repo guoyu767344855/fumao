@@ -104,14 +104,14 @@ export default {
       ],
       iconList:[
         {
-          pic:require('../../assets/images/huiyuan.png'),
-          name:'富猫会员',
-          route:'/member'
-        },
-        {
           pic:require('../../assets/images/huangjing.png'),
           name:'加入富猫',
           route:'加入富猫'
+        },
+        {
+          pic:require('../../assets/images/huiyuan.png'),
+          name:'富猫会员',
+          route:'/member'
         },
         {
           pic:require('../../assets/images/chanpin.png'),
@@ -119,26 +119,26 @@ export default {
           route:'/product'
         },
         {
-          pic:require('../../assets/images/shangxue.png'),
-          name:'财富学院',
-          route:'财富学院'
+          pic:require('../../assets/images/jiankang.png'),
+          name:'健康商学院',
+          route:'客服'
         },
       ],
       iconList2:[
         {
-          pic:require('../../assets/images/meiri.png'),
-          name:'每日特惠',
-          route:'每日特惠'
-        },
-        {
           pic:require('../../assets/images/liangxing.png'),
-          name:'两性商学院',
+          name:'两性学院',
           route:'/business'
         },
         {
-          pic:require('../../assets/images/jiankang.png'),
-          name:'健康商学院',
-          route:'客服'
+          pic:require('../../assets/images/shangxue.png'),
+          name:'财富学院',
+          route:'财富学院'
+        },
+        {
+          pic:require('../../assets/images/meiri.png'),
+          name:'每日特惠',
+          route:'每日特惠'
         },
         {
           pic:require('../../assets/images/tuandui.png'),
