@@ -7,7 +7,7 @@
       <div class="saveImg" @click="save">保存图片</div>
     </div>
     <div>
-      <van-swipe class="swiper" :autoplay="3000" indicator-color="white">
+      <van-swipe class="swiper" :autoplay="3000" indicator-color="white" :duration='1000'>
         <van-swipe-item class="swiper-item" v-for="(item,index) in bannerList" :key="index">
           <img class="swiper-img" :src="item" alt="">
         </van-swipe-item>
