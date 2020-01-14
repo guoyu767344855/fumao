@@ -74,26 +74,26 @@ export default {
       src:'',
       // 海报
       painting:{
-        width: 265,
-        height: 500,
+        width: 265*4,
+        height: 500*4,
         views:[
           {
             type: 'image',
             url: require('../../assets/images/canvas.jpg'),
             left: 0,
             top: 0,
-            width: 265,
-            height: 500,
+            width: 265*4,
+            height: 500*4,
           },
           {
             type: 'qrcode',
             content:`http://api-test.hangim.com/wxMpAuth/index?parentId=${localStorage.getItem('userId') || ''}`,
             background: '#fff',
             color: '#000',
-            left: 101.5,
-            top: 376,
-            width: 79,
-            height: 79,
+            left: 101.5*4,
+            top: 376*4,
+            width: 79*4,
+            height: 79*4,
           },
         ]
       },
@@ -396,7 +396,8 @@ export default {
   width: 100%;
   height: 100%;
   z-index: 100;
-  background-color: rgba(0, 0, 0, 0.7)
+  background-color: rgba(0, 0, 0, 0.7);
+  text-align: center;
 }
 /* .canvas{
     top:-50px !important;
@@ -406,12 +407,14 @@ export default {
     margin: auto !important;
 } */
 .canvasImg{
-    display: block;
+    width: 530px;
+    height: 1000px;
+    top:-50px;
     right:0;
     bottom:0;
     left:0;
     margin: auto;
-    padding-top: 60px;
+    position: absolute;
 }
 .saveImg{
     position: fixed;
