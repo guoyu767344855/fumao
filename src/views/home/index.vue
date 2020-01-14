@@ -4,7 +4,8 @@
     <div class="canvasBox" v-if="showImg">
       <div class="close" @click="closeImg">关闭</div>
       <vue-canvas-poster :painting="painting" @success="success"></vue-canvas-poster>
-      <div class="saveImg" @click="save">保存图片</div>
+      <img class="canvasImg" :src="src" alt="">
+      <div class="saveImg" @click="save">长按保存图片</div>
     </div>
     <div>
       <van-swipe class="swiper" :autoplay="3000" indicator-color="white" :duration='1000'>
@@ -397,12 +398,20 @@ export default {
   z-index: 100;
   background-color: rgba(0, 0, 0, 0.7)
 }
-.canvas{
+/* .canvas{
     top:-50px !important;
     right:0;
     bottom:0;
     left:0;
     margin: auto !important;
+} */
+.canvasImg{
+    display: block;
+    right:0;
+    bottom:0;
+    left:0;
+    margin: auto;
+    padding-top: 60px;
 }
 .saveImg{
     position: fixed;
