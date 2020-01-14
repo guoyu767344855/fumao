@@ -51,7 +51,7 @@
         </div>
         <div class="footer-center" @click="openShare">
             <img src="../../assets/images/Shape.png" alt="">
-            <div>赚￥{{totalPrice}}</div>
+            <div>赚￥{{details.commission ? details.commission : '0'}}</div>
         </div>
         <div class="footer-right" @click="showPopup">立刻购买</div>
     </div>
@@ -82,7 +82,7 @@
                 </div>
                 <div class="footer-center" @click="openShare">
                     <img src="../../assets/images/Shape.png" alt="">
-                    <div>赚￥{{totalPrice}}</div>
+                    <div>赚￥{{details.commission ? details.commission : '0'}}</div>
                 </div>
                 <div class="footer-right" @click="props.skuEventBus.$emit('sku:buy')">立刻购买</div>
             </div>
@@ -181,6 +181,7 @@ export default {
                 title:res.data.subTitle,
                 picture:res.data.pic
             }
+            document.title = res.data.subTitle
         })
     },
     showPopup() {

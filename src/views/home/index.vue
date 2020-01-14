@@ -86,7 +86,7 @@ export default {
           },
           {
             type: 'qrcode',
-            content:'http://api-test.hangim.com/wxMpAuth/index',
+            content:`http://api-test.hangim.com/wxMpAuth/index?parentId=${localStorage.getItem('userId') || ''}`,
             background: '#fff',
             color: '#000',
             left: 89.5,
@@ -168,6 +168,9 @@ export default {
       // console.log(res)
     })
   },
+  beforeDestroy(){
+    _MEIQIA('hidePanel');
+  },
   methods: {
     // 关闭图片
     closeImg(){
@@ -193,7 +196,8 @@ export default {
       }else if(path == '财富学院'){
         Toast('建设中')
       }else if(path == '客服'){
-        window.location.href = 'https://chat-new.mqimg.com/widget/standalone.html?eid=187321'
+        // window.location.href = 'https://chat-new.mqimg.com/widget/standalone.html?eid=187321'
+        _MEIQIA('showPanel');
       }else{
         this.$router.push({path})
       }
@@ -397,6 +401,12 @@ export default {
   color: #ffffff;
   font-size: 28px;
   z-index: 10000;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 </style>
 

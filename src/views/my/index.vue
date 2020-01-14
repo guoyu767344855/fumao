@@ -130,6 +130,9 @@ export default {
       }
     })
   },
+  beforeDestroy(){
+    _MEIQIA('hidePanel');
+  },
   methods: {
     // 去收益
     toEst(){
@@ -146,7 +149,8 @@ export default {
     // 更多服务
     toMore(index){
       if(index == 1){
-        window.location.href = 'https://xiaokefu.com.cn/s/11272kto0'
+        // window.location.href = 'https://xiaokefu.com.cn/s/11272kto0'
+        _MEIQIA('showPanel');
       }else if(index == 2){
         window.location.href = 'https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzU2Nzc0MzU5Mg==&scene=123#wechat_redirect'
       }else if(index == 0){
