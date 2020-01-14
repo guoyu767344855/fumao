@@ -4,7 +4,7 @@
     <div class="canvasBox" v-if="showImg">
       <div class="close" @click="closeImg">关闭</div>
       <vue-canvas-poster :painting="painting" @success="success"></vue-canvas-poster>
-      <div class="saveImg">长按图片进行保存</div>
+      <div class="saveImg" @click="save">保存图片</div>
     </div>
     <div>
       <van-swipe class="swiper" :autoplay="3000" indicator-color="white">
@@ -73,26 +73,26 @@ export default {
       src:'',
       // 海报
       painting:{
-        width: 225,
-        height: 400,
+        width: 265,
+        height: 500,
         views:[
           {
             type: 'image',
             url: require('../../assets/images/canvas.jpg'),
             left: 0,
             top: 0,
-            width: 225,
-            height: 400,
+            width: 265,
+            height: 500,
           },
           {
             type: 'qrcode',
             content:`http://api-test.hangim.com/wxMpAuth/index?parentId=${localStorage.getItem('userId') || ''}`,
             background: '#fff',
             color: '#000',
-            left: 89.5,
-            top: 303,
-            width: 60,
-            height: 60,
+            left: 101.5,
+            top: 376,
+            width: 79,
+            height: 79,
           },
         ]
       },
@@ -172,6 +172,31 @@ export default {
     _MEIQIA('hidePanel');
   },
   methods: {
+    dataURLtoBlob(dataurl) {
+        var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
+            bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+        while (n--) {
+            u8arr[n] = bstr.charCodeAt(n);
+        }
+        return new Blob([u8arr], { type: mime });
+    },
+    downloadFile(url,name='富猫分享图'){
+        var a = document.createElement("a")
+        a.setAttribute("href",url)
+        a.setAttribute("download",name)
+        a.setAttribute("target","_blank")
+        let clickEvent = document.createEvent("MouseEvents");
+        clickEvent.initEvent("click", true, true);  
+        a.dispatchEvent(clickEvent);
+    },
+    downloadFileByBase64(base64,name){
+        var myBlob = this.dataURLtoBlob(base64)
+        var myUrl = URL.createObjectURL(myBlob)
+        this.downloadFile(myUrl,name)
+    },
+    save(){
+      this.downloadFileByBase64(this.src)
+    },
     // 关闭图片
     closeImg(){
       this.showImg = false;
