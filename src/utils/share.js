@@ -28,7 +28,7 @@ import wx from 'weixin-js-sdk';
 }
 function shareConfig(){
   wx.updateAppMessageShareData({
-    title:'黄金鹿鞭', // 分享标题
+    title:'富猫', // 分享标题
     desc:'分享', // 分享描述
     link:`http://api-test.hangim.com/wxMpAuth/index?parentId=${localStorage.getItem('userId') || ''}`, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
     imgUrl:require('../assets/images/sharIcon.jpg'), // 分享图标
@@ -38,7 +38,7 @@ function shareConfig(){
     }
   })
   wx.updateTimelineShareData({ 
-    title:'黄金鹿鞭', // 分享标题
+    title:'富猫', // 分享标题
     link:`http://api-test.hangim.com/wxMpAuth/index?parentId=${localStorage.getItem('userId') || ''}`, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
     imgUrl:require('../assets/images/sharIcon.jpg'), // 分享图标
     success: function () {
