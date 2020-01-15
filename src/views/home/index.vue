@@ -165,9 +165,7 @@ export default {
 
   },
   created(){
-    getShareQrCode().then(res=>{
-      // console.log(res)
-    })
+    
   },
   beforeDestroy(){
     _MEIQIA('hidePanel');
