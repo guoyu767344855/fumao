@@ -51,7 +51,7 @@
         </div>
         <div class="footer-center" @click="openShare">
             <img src="../../assets/images/Shape.png" alt="">
-            <div>赚￥{{details.commission ? details.commission : '0'}}</div>
+            <div>赚￥{{details.commission | levelCount}}</div>
         </div>
         <div class="footer-right" @click="showPopup">立刻购买</div>
     </div>
@@ -82,7 +82,7 @@
                 </div>
                 <div class="footer-center" @click="openShare">
                     <img src="../../assets/images/Shape.png" alt="">
-                    <div>赚￥{{details.commission ? details.commission : '0'}}</div>
+                    <div>赚￥{{details.commission | levelCount}}</div>
                 </div>
                 <div class="footer-right" @click="props.skuEventBus.$emit('sku:buy')">立刻购买</div>
             </div>
@@ -119,6 +119,22 @@ export default {
     }
   },
   computed:{
+  },
+  filters:{
+      levelCount(e){
+          let level = localStorage.getItem('level')
+          if(level == 0){
+              return e = e*0
+          }else if(level == 1){
+              return e = e*0.5
+          }else if(level == 2){
+              return e = e*0.72
+          }else if(level == 3){
+              return e = e*0.76
+          }else{
+              return e
+          }
+      }
   },
   created(){
     this.getDetail(this.$route.query.id)

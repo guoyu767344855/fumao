@@ -14,8 +14,9 @@ router.beforeEach(async(to, from, next) => {
   }
   if(localStorage.getItem('token')){
     getUserInfo().then(res=>{
-      console.log('用户信息',res.data.id)
+      console.log('用户信息',res.data)
       localStorage.setItem('userId',res.data.id)
+      localStorage.setItem('level',res.data.level)
       next()
     })
   }
