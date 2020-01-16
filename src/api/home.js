@@ -14,3 +14,10 @@ export function getShareQrCode() {
     method: 'get'
   })
 }
+
+export function getContent() {
+  return request({
+    url:'/home/content',
+    method: 'get'
+  })
+}

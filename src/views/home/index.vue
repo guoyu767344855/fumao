@@ -10,7 +10,7 @@
     <div>
       <van-swipe class="swiper" :autoplay="3000" indicator-color="white" :duration='1000'>
         <van-swipe-item class="swiper-item" v-for="(item,index) in bannerList" :key="index">
-          <img class="swiper-img" :src="item" alt="">
+          <img class="swiper-img" :src="item.pic" alt="">
         </van-swipe-item>
       </van-swipe>
     </div>
@@ -62,7 +62,7 @@
 
 <script>
 import { Toast } from 'vant';
-import {list,getShareQrCode} from '@/api/home'
+import {list,getShareQrCode,getContent} from '@/api/home'
 export default {
   name:'home',
   components: {
@@ -165,12 +165,19 @@ export default {
 
   },
   created(){
-    
+    this.getBanner();
   },
   beforeDestroy(){
     _MEIQIA('hidePanel');
   },
   methods: {
+    // 获取首页banner
+    getBanner(){
+      getContent().then(res=>{
+        console.log('banner',res)
+        this.bannerList = res.data.advertiseList
+      })
+    },
     dataURLtoBlob(dataurl) {
         var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
             bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
