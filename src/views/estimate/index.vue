@@ -23,7 +23,7 @@
     <div class='earnings flex'>
         <span>收益明细</span>
         <div class='earnings-text flex'>
-            <span>结算说明</span><img class='earnings-img' src='' />
+            <span>结算说明</span><img class='earnings-img' src='../../assets/images/shuoming.png' />
         </div>
     </div>
     <div class='chosetime flex'>
@@ -51,19 +51,19 @@
                 <div class='flex' style="align-items: flex-start;">
                     <img class='people-item-img' :src="item.productImageUrl" />
                     <div class='people-item-text'>
-                        <div class='people-item-text-name'><span>{{item.orderUserName}}</span></div> 
+                        <div class='people-item-text-name'><span>{{item.productName}}</span></div> 
                         <div class='people-item-text-money'><span>支付金额：¥{{item.orderAmount}}元</span></div>
                         <div class='people-item-text-time'><span>{{item.createTime}}</span></div>
                     </div>
                 </div>
                 <div class='people-item-text' style="text-align:right;">
-                    <div class='people-item-text-count'><span>{{item.settled ? '已结算':'未结算'}}</span></div> 
+                    <div class='people-item-text-count'><span>{{item.canceled ? '已取消' : (item.settled ? '已结算':'未结算')}}</span></div> 
                     <div class='people-item-text-status'><span>收益 ¥{{item.amount}}</span></div> 
                 </div>
             </div>
             <div class="useritem flex">
                 <img class="headerimg" :src="item.orderUserHeadImgUrl" alt="">
-                <span>{{item.userName}}</span>
+                <span>{{item.orderUserName}}</span>
             </div>
         </div>
         <div class="people-item" style="text-align:center;" v-if="list.length == 0">暂无</div>

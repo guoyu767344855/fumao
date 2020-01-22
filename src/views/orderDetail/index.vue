@@ -79,7 +79,7 @@
             <div class="footer-right" @click="Payment">付款</div>
         </div>
         <div v-if="details.status == 1" class="footer-center">
-            <div class="footer-cancle">提醒发货</div>
+            <div class="footer-cancle" @click="tixing">提醒发货</div>
         </div>
         <div v-if="details.status == 2" class="footer-center">
             <div class="footer-right" @click="confirmReceipt">确认收货</div>
@@ -158,6 +158,10 @@ export default {
     }
   },
   methods: {
+	// 提醒發貨
+	tixing(){
+		Toast.success('已提醒商家发货')
+	},
     //   确认收货
     confirmReceipt(){
         receive(this.details.id).then(res=>{
