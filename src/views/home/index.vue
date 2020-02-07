@@ -70,7 +70,7 @@ export default {
 
   data () {
     return {
-      showImg:true,
+      showImg:false,
       src:'',
       // 海报
       painting:{
