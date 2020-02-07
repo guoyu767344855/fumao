@@ -17,6 +17,8 @@ router.beforeEach(async(to, from, next) => {
       console.log('用户信息',res.data)
       localStorage.setItem('userId',res.data.id)
       localStorage.setItem('level',res.data.level)
+      localStorage.setItem('icon',res.data.icon)
+      localStorage.setItem('nickname',res.data.nickname)
       next()
     })
   }

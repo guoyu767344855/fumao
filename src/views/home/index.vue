@@ -70,7 +70,7 @@ export default {
 
   data () {
     return {
-      showImg:false,
+      showImg:true,
       src:'',
       // 海报
       painting:{
@@ -86,14 +86,47 @@ export default {
             height: 500*4,
           },
           {
+            type: 'image',
+            url: localStorage.getItem('icon') || require('../../assets/images/sharIcon.jpg'),
+            left: 60,
+            top: 52,
+            radius:80,
+            width: 40*4,
+            height: 40*4,
+          },
+          {
+            type: 'text',
+            content: '5338',
+            fontSize: 50,
+            bolder: true,
+            top: 460*4,
+            left: 413,
+            width: 360,
+            color:'#fff',
+            breakWord: true,
+            MaxLineNumber: 1,
+          },
+          {
+            type: 'text',
+            content: localStorage.getItem('nickname'),
+            fontSize: 50,
+            bolder: true,
+            top: 78,
+            left: 326,
+            width: 360,
+            color:'#fdea08',
+            breakWord: true,
+            MaxLineNumber: 1,
+          },
+          {
             type: 'qrcode',
             content:`http://api-test.hangim.com/wxMpAuth/index?parentId=${localStorage.getItem('userId') || ''}`,
             background: '#fff',
             color: '#000',
-            left: 101.5*4,
-            top: 376*4,
-            width: 79*4,
-            height: 79*4,
+            left: 185*4,
+            top: 421*4,
+            width: 69*4,
+            height: 69*4,
           },
         ]
       },
