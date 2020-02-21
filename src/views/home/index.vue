@@ -120,7 +120,7 @@ export default {
           },
           {
             type: 'qrcode',
-            content:`http://api-test.hangim.com/wxMpAuth/index?parentId=${localStorage.getItem('userId') || ''}`,
+            content:`http://api-test.yiquzhuan.com/wxMpAuth/index?parentId=${localStorage.getItem('userId') || ''}`,
             background: '#fff',
             color: '#000',
             left: 185*4,
